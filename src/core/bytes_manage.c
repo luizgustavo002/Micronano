@@ -1,4 +1,5 @@
-#include <bytes_manage.h>
+#include "bytes_manage.h"
+#include "types_errors.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,97 +18,137 @@ struct Bytes_Reader
     FILE *file;
 };
 
+Status make_struct_bytes_write(Bytes_Writer **writer, FILE *file){
+    *writer = (Bytes_Writer*) calloc(1, sizeof(Bytes_Writer));
+    if (!(*writer))
+        return ERROR_MEMORY_ALLOCATION;
 
-Bytes_Writer* make_struct_bytes_write(FILE *file){
-    Bytes_Writer *writer;
-    writer = (Bytes_Writer*) calloc(1, sizeof(Bytes_Writer));
-    if (writer == NULL){
-        printf("Falha ao alocar memória.");
-        return NULL;
-    }
-
-    writer->file = file;
-    return writer;
+    (*writer)->file = file;
+    return STATUS_OK;
 }
 
-Bytes_Reader* make_struct_bytes_reader(FILE *file){
-    Bytes_Reader *reader;
-    reader = (Bytes_Reader*) calloc(1, sizeof(Bytes_Reader));
+Status make_struct_bytes_reader(Bytes_Reader **reader, FILE *file){
+    *reader = (Bytes_Reader*) calloc(1, sizeof(Bytes_Reader));
 
-    if (reader == NULL){
-        printf("Falha ao alocar memória.");
-        return NULL;
-    }
+    if (!(*reader))
+        return ERROR_MEMORY_ALLOCATION;
 
-    reader->file = file;
-    return reader;
+    (*reader)->file = file;
+    return STATUS_OK;
 }
 
-static void write_to_file(Bytes_Writer *writer){
-    fwrite(&writer->buffer_byte, sizeof(unsigned char), 1, writer->file);
+static Status write_to_file(Bytes_Writer *writer){
+    size_t result = fwrite(&writer->buffer_byte, sizeof(unsigned char), 1, writer->file);
+    if (!result)
+        return ERROR_WRITING_FILE;
     writer->bits_written = 0;
     writer->buffer_byte = 0;
+    return STATUS_OK;
 }
 
-void write_bit_to_file(int bit, Bytes_Writer *writer){
+Status write_bit_to_file(int bit, Bytes_Writer *writer){
     unsigned char byte = writer->buffer_byte;
     writer->buffer_byte = (byte << 1) | bit;
     writer->bits_written += 1;
 
-    if (writer->bits_written == 8) 
-        write_to_file(writer);
+    if (writer->bits_written == 8){
+        Status status = write_to_file(writer);
+        if (status)
+            return status;
+    }
+    return STATUS_OK;
 }
 
-void write_multiple_bits_to_file(int *bits, int size, Bytes_Writer *writer){
-    for (int i = 0; i < size; i++)
+Status write_multiple_bits_to_file(int bits, int size, Bytes_Writer *writer){
+    for (int i = size; i > 0; i--)
     {
-        write_bit_to_file(bits[i], writer);
-    }   
+        int bit = (bits >> (i - 1)) & 1;
+        Status status = write_bit_to_file(bit, writer);
+        if (status)
+            return status;
+    }  
+    return STATUS_OK; 
 }
 
-void write_byte_to_file(unsigned char byte, Bytes_Writer *writer){
+Status write_byte_to_file(unsigned char byte, Bytes_Writer *writer){
     for (int i = 7; i >= 0; i--)
     {
         int bit = (byte >> i) & 1;
-        write_bit_to_file(bit, writer);
+        Status status = write_bit_to_file(bit, writer);
+        if (status)
+            return status;
     }   
+    return STATUS_OK;
 }
 
-void write_multiple_bytes_to_file(unsigned char *bytes, int size, Bytes_Writer *writer){
+Status write_multiple_bytes_to_file(unsigned char *bytes, int size, Bytes_Writer *writer){
     for (int i = 0; i < size; i++)
     {
-        write_byte_to_file(bytes[i], writer);
+        Status status = write_byte_to_file(bytes[i], writer);
+        if (status)
+            return status;
     } 
+    return STATUS_OK;
 }
 
-void write_trash(Bytes_Writer *writer){
+Status write_trash(Bytes_Writer *writer){
     while (writer->bits_written != 0)
     {
-        write_bit_to_file(0, writer);
+        Status status = write_bit_to_file(0, writer);
+        if (status)
+            return status;
     }
+    return STATUS_OK;
 }
 
-static void read_file(Bytes_Reader *reader){
-    fread(&reader->buffer_byte, sizeof(unsigned char), 1, reader->file);
+static Status read_file(Bytes_Reader *reader){
+    size_t result = fread(&reader->buffer_byte, sizeof(unsigned char), 1, reader->file);
+    if (!result){
+        if (feof(reader->file)){
+            return ERROR_END_OF_FILE;
+        }
+        return ERROR_READING_FILE;
+    }
     reader->remaining_bits = 8;
+    return STATUS_OK;
 }
 
-int read_bit_from_file(Bytes_Reader *reader){
-    if (reader->remaining_bits == 0)
-        read_file(reader);
+Status read_bit_from_file(int *bit, Bytes_Reader *reader){
+    if (reader->remaining_bits == 0){
+        Status status = read_file(reader);
+        if (status)
+            return status;
+    }
  
-    int bit = (reader->buffer_byte >> (reader->remaining_bits - 1)) & 1;
+    bit = (reader->buffer_byte >> (reader->remaining_bits - 1)) & 1;
     reader->remaining_bits -= 1;
     
-    return bit; 
+    return STATUS_OK; 
 }
 
-unsigned char read_byte_from_file(Bytes_Reader *reader){
-    unsigned char byte = 0;
+Status read_multiple_bits_from_file(int *bits, int size, Bytes_Writer *writer){
+    bits = 0;
+    for (int i = 0; i > size; i++)
+    {
+        int bit = (bits >> (i - 1)) & 1;
+        Status status = write_bit_to_file(bit, writer);
+        if (status)
+            return status;
+    }  
+    return STATUS_OK; 
+}
+
+Status read_byte_from_file(unsigned char *byte, Bytes_Reader *reader){
+    *byte = 0;
+    int bit;
     for (int i = 0; i < 8; i++){
-        int bit = read_bit_from_file(reader);
-        byte = (byte << 1) | bit;
+        Status status = read_bit_from_file(&bit, reader);
+        if (status)
+            return status;
+        byte = (*byte << 1) | bit;
     }
     
-    return byte;
+    return STATUS_OK;
 }
+
+

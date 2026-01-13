@@ -1,0 +1,15 @@
+#ifndef TYPES_ERRORS_H
+#define TYPES_ERRORS_H
+#include <stdio.h>
+
+typedef enum {
+    STATUS_OK = 0,
+    ERROR_GENERIC,
+    ERROR_FILE_DOES_NOT_EXIST,
+    ERROR_MEMORY_ALLOCATION,
+    ERROR_WRITING_FILE,
+    ERROR_READING_FILE,
+    ERROR_END_OF_FILE
+} Status;
+
+#endif
