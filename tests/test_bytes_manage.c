@@ -46,18 +46,14 @@ void test_write_and_read(){
     status = make_struct_bytes_reader(&reader, file);
     ASSERT_STATUS_OK(status);
 
-    int bits_read[size_bits];
-    for (int i = 0; i < size_bits; i++)
-    {
-        bits_read[i] = read_bit_from_file(reader);
-    }
+    int bits_read = 0;
+    status = read_multiple_bits_from_file(&bits_read, size_bits, reader);
+    ASSERT_STATUS_OK(status);
     TEST_ASSERT_EQUAL_INT(bits, bits_read);
 
     unsigned char bytes_read[size_bytes];
-    for (int i = 0; i < size_bytes; i++)
-    {
-        bytes_read[i] = read_byte_from_file(reader);
-    }
+    status = read_multiple_bytes_from_file(bytes_read, size_bytes, reader);
+    ASSERT_STATUS_OK(status);
     TEST_ASSERT_EQUAL_UINT8_ARRAY(bytes, bytes_read, size_bytes);
 }
 

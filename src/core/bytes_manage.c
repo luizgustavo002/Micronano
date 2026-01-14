@@ -37,10 +37,20 @@ Status make_struct_bytes_reader(Bytes_Reader **reader, FILE *file){
     return STATUS_OK;
 }
 
+void free_struct_bytes_write(Bytes_Writer *writer){
+    if (writer) free(writer);
+}
+
+void free_struct_bytes_reader(Bytes_Reader *reader){
+    if (reader) free(reader);
+}
+
 static Status write_to_file(Bytes_Writer *writer){
     size_t result = fwrite(&writer->buffer_byte, sizeof(unsigned char), 1, writer->file);
-    if (!result)
+    if (!result){
+        free_struct_bytes_write(writer);
         return ERROR_WRITING_FILE;
+    }
     writer->bits_written = 0;
     writer->buffer_byte = 0;
     return STATUS_OK;
@@ -105,6 +115,7 @@ static Status read_file(Bytes_Reader *reader){
     size_t result = fread(&reader->buffer_byte, sizeof(unsigned char), 1, reader->file);
     if (!result){
         if (feof(reader->file)){
+            free_struct_bytes_reader(reader);
             return ERROR_END_OF_FILE;
         }
         return ERROR_READING_FILE;
@@ -120,20 +131,21 @@ Status read_bit_from_file(int *bit, Bytes_Reader *reader){
             return status;
     }
  
-    bit = (reader->buffer_byte >> (reader->remaining_bits - 1)) & 1;
+    *bit = (reader->buffer_byte >> (reader->remaining_bits - 1)) & 1;
     reader->remaining_bits -= 1;
     
     return STATUS_OK; 
 }
 
-Status read_multiple_bits_from_file(int *bits, int size, Bytes_Writer *writer){
-    bits = 0;
-    for (int i = 0; i > size; i++)
+Status read_multiple_bits_from_file(int *bits, int size, Bytes_Reader *reader){
+    *bits = 0;
+    int bit = 0;
+    for (int i = 0; i < size; i++)
     {
-        int bit = (bits >> (i - 1)) & 1;
-        Status status = write_bit_to_file(bit, writer);
+        Status status = read_bit_from_file(&bit, reader);
         if (status)
             return status;
+        *bits = (*bits << 1) | bit;
     }  
     return STATUS_OK; 
 }
@@ -145,10 +157,20 @@ Status read_byte_from_file(unsigned char *byte, Bytes_Reader *reader){
         Status status = read_bit_from_file(&bit, reader);
         if (status)
             return status;
-        byte = (*byte << 1) | bit;
+        *byte = (*byte << 1) | bit;
     }
     
     return STATUS_OK;
 }
 
-
+Status read_multiple_bytes_from_file(unsigned char *bytes, int size, Bytes_Reader *reader){
+    unsigned char byte = 0;
+    for (int i = 0; i < size; i++)
+    {
+        Status status = read_byte_from_file(&byte, reader);
+        if (status)
+            return status;
+        bytes[i] = byte;
+    }  
+    return STATUS_OK; 
+}
