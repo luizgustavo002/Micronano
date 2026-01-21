@@ -2,7 +2,8 @@
 #define TYPES_ERRORS_H
 #include <stdio.h>
 
-typedef enum {
+typedef enum
+{
     STATUS_OK = 0,
     ERROR_GENERIC,
     ERROR_FILE_DOES_NOT_EXIST,

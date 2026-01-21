@@ -6,16 +6,16 @@
 typedef struct Bytes_Writer Bytes_Writer;
 typedef struct Bytes_Reader Bytes_Reader;
 
-Status make_struct_bytes_write(Bytes_Writer **writer, FILE *file);
-Status make_struct_bytes_reader(Bytes_Reader **reader, FILE *file);
-void free_struct_bytes_write(Bytes_Writer *writer);
+Status create_bytes_writer(Bytes_Writer **writer, FILE *file);
+Status create_bytes_reader(Bytes_Reader **reader, FILE *file);
+void free_struct_bytes_writer(Bytes_Writer *writer);
 void free_struct_bytes_reader(Bytes_Reader *reader);
 
 Status write_bit_to_file(int bit, Bytes_Writer *write);
 Status write_multiple_bits_to_file(int bits, int size, Bytes_Writer *writer);
 Status write_byte_to_file(unsigned char byte, Bytes_Writer *write);
 Status write_multiple_bytes_to_file(unsigned char *bytes, int size, Bytes_Writer *writer);
-Status write_trash(Bytes_Writer *writer);
+Status write_padding(Bytes_Writer *writer);
 
 Status read_bit_from_file(int *bit, Bytes_Reader *reader);
 Status read_multiple_bits_from_file(int *bits, int size, Bytes_Reader *reader);
