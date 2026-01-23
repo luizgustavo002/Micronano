@@ -1,4 +1,4 @@
-#include "bytes_manage.h"
+#include "bytes_manager.h"
 #include "types_errors.h"
 #include "logger.h"
 
@@ -27,7 +27,7 @@ Status create_bytes_writer(Bytes_Writer **writer, FILE *file)
         log_message(LOG_ERROR, "Failed to allocate memory for Bytes_Writer.");
         return ERROR_MEMORY_ALLOCATION;
     }
-
+    
     (*writer)->file = file;
     return STATUS_OK;
 }

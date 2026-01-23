@@ -20,18 +20,21 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 add_compile_options(-Wall -Wextra -Wpedantic)
 
 add_library(core_lib STATIC
-    src/core/bytes_manage.c
+    src/core/bytes_manager.c
     src/core/logger.c
+    src/core/file_manager.c
+    src/core/huffman_encoder.c
+    src/core/huffman.c
 )
 target_include_directories(core_lib PUBLIC include/core)
 
 add_executable(Micronano src/core/main.c)
-add_executable(test_bytes_manage tests/test_bytes_manage.c)
+add_executable(test_bytes_manager tests/test_bytes_manager.c)
 add_executable(test_logger tests/test_logger.c)
 
 target_link_libraries(Micronano PRIVATE core_lib)
-target_link_libraries(test_bytes_manage PRIVATE core_lib unity)
+target_link_libraries(test_bytes_manager PRIVATE core_lib unity)
 target_link_libraries(test_logger PRIVATE core_lib unity)
 
-add_test(NAME bytes_manage_test COMMAND test_bytes_manage)
+add_test(NAME bytes_manage_test COMMAND test_bytes_manager)
 add_test(NAME logger_test COMMAND test_logger)

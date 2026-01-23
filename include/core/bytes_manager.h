@@ -1,5 +1,5 @@
-#ifndef BYTES_MANAGE_H
-#define BYTES_MANAGE_H
+#ifndef BYTES_MANAGER_H
+#define BYTES_MANAGER_H
 #include "types_errors.h"
 #include <stdio.h>
 

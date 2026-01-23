@@ -1,0 +1,22 @@
+#ifndef HUFFMAN_H
+#define HUFFMAN_H
+
+#include "types_errors.h"
+#include "bytes_manager.h"
+#include <stdio.h>
+
+typedef struct Huffman_Encoder Huffman_Encoder;
+typedef struct Huffman_Decoder Huffman_Decoder;
+typedef struct Frequency_List Frequency_List;
+typedef struct Frequency_Node Frequency_Node;
+typedef struct Huffman_Tree Huffman_Tree;
+typedef struct Huffman_Node Huffman_Node;
+
+Status create_huffman_encoder(Huffman_Encoder **encoder, const char *input_path, const char *output_path);
+Status create_huffman_decoder(Huffman_Decoder **decoder, const char *input_path, const char *output_path);
+void free_huffman_encoder(Huffman_Encoder *encoder);
+void free_huffman_decoder(Huffman_Decoder *decoder);
+
+void test();
+
+#endif
