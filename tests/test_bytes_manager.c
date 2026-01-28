@@ -1,6 +1,7 @@
 #include "bytes_manager.h"
 #include "types_errors.h"
 #include "logger.h"
+#include "test_helpers.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,16 +22,6 @@ void tearDown()
 {
     remove(test_file);
 }
-
-#define ASSERT_STATUS_OK(status)                                             \
-    do                                                                       \
-    {                                                                        \
-        if (status)                                                          \
-        {                                                                    \
-            TEST_ASSERT_EQUAL_INT(STATUS_OK, status);                        \
-            TEST_FAIL_MESSAGE("The function failed; please check the log."); \
-        }                                                                    \
-    } while (0)
 
 void test_write_and_read()
 {

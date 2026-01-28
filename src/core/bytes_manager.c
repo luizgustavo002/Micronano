@@ -64,8 +64,9 @@ static Status write_to_file(Bytes_Writer *writer)
 {
     //log_message(LOG_DEBUG, "Reading byte from file.");
     size_t result = fwrite(&writer->buffer_byte, sizeof(unsigned char), 1, writer->file);
-    if (!result)
+    if (result != 1)
     {
+        log_message(LOG_ERROR, "Could not write to file");
         free_struct_bytes_writer(writer);
         return ERROR_WRITING_FILE;
     }
@@ -154,6 +155,7 @@ static Status read_file(Bytes_Reader *reader)
 
 Status read_bit_from_file(int *bit, Bytes_Reader *reader)
 {
+    *bit = 0;
     if (reader->remaining_bits == 0)
     {
         Status status = read_file(reader);

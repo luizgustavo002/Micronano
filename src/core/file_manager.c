@@ -16,9 +16,3 @@ Status open_file(FILE** file, const char *path, const char *mode)
     }
     return STATUS_OK;
 }
-
-
-Status read_text_file(unsigned char *text, Huffman_Encoder *encoder)
-{
-    
-}

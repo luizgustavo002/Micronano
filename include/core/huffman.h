@@ -17,6 +17,12 @@ Status create_huffman_decoder(Huffman_Decoder **decoder, const char *input_path,
 void free_huffman_encoder(Huffman_Encoder *encoder);
 void free_huffman_decoder(Huffman_Decoder *decoder);
 
+Status create_frequency_list(Huffman_Encoder *encoder);
+
 void test();
+
+Huffman_Node* get_first_node(Huffman_Encoder *encoder);
+Huffman_Node* get_next_node(Huffman_Node *node);
+unsigned int get_node_frequency(Huffman_Node *node);
 
 #endif

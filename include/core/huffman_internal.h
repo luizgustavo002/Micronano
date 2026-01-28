@@ -4,6 +4,15 @@
 #include "bytes_manager.h"
 
 #define ASCII_SIZE 256
+#define ASSERT_STATUS_OK(status) \
+    do                           \
+    {                            \
+        if (status)              \
+        {                        \
+            return status;       \
+        }                        \
+    } while (0)
+
 
 struct Huffman_Encoder
 {
@@ -22,15 +31,22 @@ struct Huffman_Decoder
 
 struct Frequency_List
 {
-    Frequency_Node *first_node;
+    Huffman_Node *first_node;
     int size;
 };
 
 struct Frequency_Node
 {
     unsigned char symbol;
-    int frequency;
-    Frequency_Node *next;
+    unsigned int frequency;
+    Huffman_Node *next;
+};
+
+struct Huffman_Node
+{
+    unsigned char symbol;
+    unsigned int frequency;
+    Huffman_Node *next;
 };
 
 #endif
