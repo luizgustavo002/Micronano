@@ -64,6 +64,8 @@ void test_create_frequency_list_1()
     status = create_frequency_list(encoder);
     ASSERT_STATUS_OK(status);
     assert_list_order(encoder);
+
+    free_huffman_encoder(&encoder);
 }
 
 void test_create_frequency_list_empty()
@@ -82,6 +84,28 @@ void test_create_frequency_list_empty()
     status = create_frequency_list(encoder);
     ASSERT_STATUS_OK(status);
     assert_list_order(encoder);
+    
+    free_huffman_encoder(&encoder);
+}
+
+void test_build_huffman_tree_1()
+{
+    logger_init("tests.log", 1);
+    log_message(LOG_INFO, "Running huffman_encoder test");
+
+    Status status;
+    status = create_temp_file(input_test_file_txt, test_input_1, sizeof(test_input_1) - sizeof(unsigned char));
+    ASSERT_STATUS_OK(status);
+
+    Huffman_Encoder *encoder;
+    status = create_huffman_encoder(&encoder, input_test_file_txt, output_test_file_txt);
+    ASSERT_STATUS_OK(status);
+
+    status = create_frequency_list(encoder);
+    ASSERT_STATUS_OK(status);
+
+    build_huffman_tree(encoder);
+    free_huffman_encoder(&encoder);
 }
 
 int main()
@@ -89,6 +113,7 @@ int main()
     UNITY_BEGIN();
     RUN_TEST(test_create_frequency_list_1);
     RUN_TEST(test_create_frequency_list_empty);
+    RUN_TEST(test_build_huffman_tree_1);
     UNITY_END();
     return 0;
 }

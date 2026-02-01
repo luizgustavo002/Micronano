@@ -19,7 +19,7 @@ struct Huffman_Encoder
     Bytes_Writer *writer;
     Bytes_Reader *reader;
     unsigned int char_frequency[ASCII_SIZE];
-    Frequency_List *frequency_list;
+    Huffman_Tree *huffman_tree;
 };
 
 struct Huffman_Decoder
@@ -28,18 +28,11 @@ struct Huffman_Decoder
     Bytes_Reader *reader;
 };
 
-
-struct Frequency_List
+struct Huffman_Tree
 {
     Huffman_Node *first_node;
-    int size;
-};
-
-struct Frequency_Node
-{
-    unsigned char symbol;
-    unsigned int frequency;
-    Huffman_Node *next;
+    unsigned int size;
+    unsigned int height;
 };
 
 struct Huffman_Node
@@ -47,6 +40,8 @@ struct Huffman_Node
     unsigned char symbol;
     unsigned int frequency;
     Huffman_Node *next;
+    Huffman_Node *right;
+    Huffman_Node *left;
 };
 
 #endif

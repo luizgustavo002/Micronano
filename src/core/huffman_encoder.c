@@ -56,16 +56,16 @@ static Status count_char_frequency(Huffman_Encoder *encoder)
 
 static void insert_sorted_node(Huffman_Node *new_node, Huffman_Encoder *encoder)
 {
-    if (encoder->frequency_list->first_node == NULL)
+    if (encoder->huffman_tree->first_node == NULL)
     {
-        encoder->frequency_list->first_node = new_node;
-        encoder->frequency_list->size++;
+        encoder->huffman_tree->first_node = new_node;
+        encoder->huffman_tree->size++;
         return;
     }
 
-    Huffman_Node *next_node = encoder->frequency_list->first_node;
+    Huffman_Node *next_node = encoder->huffman_tree->first_node;
     Huffman_Node *prev_node = NULL;
-    for (int i = 0; i < encoder->frequency_list->size + 1; i++)
+    for (unsigned int i = 0; i < encoder->huffman_tree->size + 1; i++)
     {
         if (next_node->next == NULL && prev_node)
         {
@@ -81,10 +81,10 @@ static void insert_sorted_node(Huffman_Node *new_node, Huffman_Encoder *encoder)
 
         if (new_node->frequency <= next_node->frequency)
         {
-            if (i == 0 || encoder->frequency_list->first_node->next == NULL)
+            if (i == 0 || encoder->huffman_tree->first_node->next == NULL)
             {
                 new_node->next = next_node;
-                encoder->frequency_list->first_node = new_node;
+                encoder->huffman_tree->first_node = new_node;
                 break;
             }
             prev_node->next = new_node;
@@ -92,25 +92,25 @@ static void insert_sorted_node(Huffman_Node *new_node, Huffman_Encoder *encoder)
             break;
         }
 
-        if (encoder->frequency_list->first_node->next == NULL)
+        if (encoder->huffman_tree->first_node->next == NULL)
         {
-            encoder->frequency_list->first_node->next = new_node;
+            encoder->huffman_tree->first_node->next = new_node;
             break;
         }
         prev_node = next_node;
         next_node = next_node->next;
     }
 
-    encoder->frequency_list->size++;
+    encoder->huffman_tree->size++;
 }
 
 Status create_frequency_list(Huffman_Encoder *encoder)
 {
     log_message(LOG_DEBUG, "Creating frequency list.");
-    encoder->frequency_list = (Frequency_List *)calloc(1, sizeof(Frequency_List));
-    if (encoder->frequency_list == NULL)
+    encoder->huffman_tree = (Huffman_Tree *)calloc(1, sizeof(Huffman_Tree));
+    if (encoder->huffman_tree == NULL)
     {
-        log_message(LOG_ERROR, "Failed to allocate memory for Frequency_List.");
+        log_message(LOG_ERROR, "Failed to allocate memory for Huffman_Tree.");
         return ERROR_MEMORY_ALLOCATION;
     }
 
@@ -136,11 +136,56 @@ Status create_frequency_list(Huffman_Encoder *encoder)
     return STATUS_OK;
 }
 
+Status new_huffman_node(Huffman_Node **node, Huffman_Node *left_node, Huffman_Node *right_node){
 
+    Huffman_Node *new_node = (Huffman_Node*) calloc(1, sizeof(Huffman_Node));
+    if (new_node == NULL){
+        log_message(LOG_ERROR, "Failed to allocate memory for Huffman_Node.");
+        *node = NULL;
+        return ERROR_MEMORY_ALLOCATION;
+    }
+
+    new_node->symbol = (unsigned char) 0;
+
+    if (left_node != NULL && right_node != NULL)
+        new_node->frequency = left_node->frequency + right_node->frequency;
+    else
+        new_node->frequency = 0;
+    
+    new_node->right = right_node;
+    new_node->left = left_node;
+    new_node->next = NULL;
+    *node = new_node;
+    return STATUS_OK;
+}
+
+Status build_huffman_tree(Huffman_Encoder *encoder)
+{
+    Status status;
+    while (encoder->huffman_tree->size >= 2)
+    {
+        Huffman_Node *left_child = encoder->huffman_tree->first_node;
+        Huffman_Node *right_child = encoder->huffman_tree->first_node->next;
+        Huffman_Node *next_child = encoder->huffman_tree->first_node->next->next;
+
+        Huffman_Node *new_node;
+        status = new_huffman_node(&new_node, left_child, right_child);
+        if (status)
+        {
+            return status;
+        }
+        encoder->huffman_tree->first_node = next_child;
+        encoder->huffman_tree->size -= 2;
+
+        insert_sorted_node(new_node, encoder);
+    } 
+    encoder->huffman_tree->height = get_height_tree(encoder->huffman_tree->first_node);
+    return STATUS_OK;
+}
 
 Huffman_Node* get_first_node(Huffman_Encoder *encoder)
 {
-    return encoder->frequency_list->first_node;
+    return encoder->huffman_tree->first_node;
 }
 
 Huffman_Node* get_next_node(Huffman_Node *node)
@@ -151,4 +196,14 @@ Huffman_Node* get_next_node(Huffman_Node *node)
 unsigned int get_node_frequency(Huffman_Node *node)
 {
     return node->frequency;
+}
+
+void free_huffman_encoder(Huffman_Encoder **encoder)
+{
+    log_message(LOG_DEBUG, "Freeing Huffman_Encoder.");
+    free_bytes_writer(&(*encoder)->writer);
+    free_bytes_reader(&(*encoder)->reader);
+    free_huffman_tree(&(*encoder)->huffman_tree);
+    free((*encoder));
+    *encoder = NULL;
 }

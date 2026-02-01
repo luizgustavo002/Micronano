@@ -46,18 +46,20 @@ Status create_bytes_reader(Bytes_Reader **reader, FILE *file)
     return STATUS_OK;
 }
 
-void free_struct_bytes_writer(Bytes_Writer *writer)
+void free_bytes_writer(Bytes_Writer **writer)
 {
     log_message(LOG_DEBUG, "Freeing Bytes_Writer.");
-    if (writer)
-        free(writer);
+    if (*writer)
+        free(*writer);
+    *writer = NULL;
 }
 
-void free_struct_bytes_reader(Bytes_Reader *reader)
+void free_bytes_reader(Bytes_Reader **reader)
 {
     log_message(LOG_DEBUG, "Freeing Bytes_Reader.");
-    if (reader)
-        free(reader);
+    if (*reader)
+        free(*reader);
+    *reader = NULL;
 }
 
 static Status write_to_file(Bytes_Writer *writer)
@@ -67,7 +69,6 @@ static Status write_to_file(Bytes_Writer *writer)
     if (result != 1)
     {
         log_message(LOG_ERROR, "Could not write to file");
-        free_struct_bytes_writer(writer);
         return ERROR_WRITING_FILE;
     }
     writer->bits_written = 0;
@@ -144,7 +145,6 @@ static Status read_file(Bytes_Reader *reader)
     {
         if (feof(reader->file))
         {
-            free_struct_bytes_reader(reader);
             return ERROR_END_OF_FILE;
         }
         return ERROR_READING_FILE;

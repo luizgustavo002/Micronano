@@ -18,7 +18,7 @@ void tearDown(void)
 int main()
 {
     UNITY_BEGIN();
-    RUN_TEST();
+    // RUN_TEST();
     UNITY_END();
     return 0;
 }

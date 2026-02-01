@@ -42,7 +42,7 @@ void test_write_and_read()
     status = write_padding(writer);
     ASSERT_STATUS_OK(status);
     fclose(file);
-    free_struct_bytes_writer(writer);
+    free_bytes_writer(&writer);
     //-----------------------------------------------------------------------------
     file = fopen(test_file, "rb");
     Bytes_Reader *reader = NULL;
@@ -59,7 +59,7 @@ void test_write_and_read()
     ASSERT_STATUS_OK(status);
     TEST_ASSERT_EQUAL_UINT8_ARRAY(bytes, bytes_read, size_bytes);
     fclose(file);
-    free_struct_bytes_reader(reader);
+    free_bytes_reader(&reader);
 
     logger_close();
 }

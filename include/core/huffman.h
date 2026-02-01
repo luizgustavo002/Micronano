@@ -8,18 +8,18 @@
 typedef struct Huffman_Encoder Huffman_Encoder;
 typedef struct Huffman_Decoder Huffman_Decoder;
 typedef struct Frequency_List Frequency_List;
-typedef struct Frequency_Node Frequency_Node;
 typedef struct Huffman_Tree Huffman_Tree;
 typedef struct Huffman_Node Huffman_Node;
 
 Status create_huffman_encoder(Huffman_Encoder **encoder, const char *input_path, const char *output_path);
 Status create_huffman_decoder(Huffman_Decoder **decoder, const char *input_path, const char *output_path);
-void free_huffman_encoder(Huffman_Encoder *encoder);
+void free_huffman_encoder(Huffman_Encoder **encoder);
 void free_huffman_decoder(Huffman_Decoder *decoder);
 
 Status create_frequency_list(Huffman_Encoder *encoder);
-
-void test();
+Status build_huffman_tree(Huffman_Encoder *encoder);
+unsigned int get_height_tree(Huffman_Node *root);
+void free_huffman_tree(Huffman_Tree **tree);
 
 Huffman_Node* get_first_node(Huffman_Encoder *encoder);
 Huffman_Node* get_next_node(Huffman_Node *node);

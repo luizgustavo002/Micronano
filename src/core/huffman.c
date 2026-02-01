@@ -34,5 +34,53 @@ Status create_huffman_decoder(Huffman_Decoder **decoder, const char *input_path,
     return STATUS_OK;
 }
 
+unsigned int get_height_tree(Huffman_Node *root)
+{
+    int left = 0, right = 0;
 
+    if (root == NULL)
+        return -1;
 
+    left = get_height_tree(root->left) + 1;
+    right = get_height_tree(root->right) + 1;
+
+    if (left > right)
+        return left;
+
+    return right;
+}
+
+static void free_huffman_node(Huffman_Node **node)
+{
+    if (*node == NULL)
+        return;
+
+    free_huffman_node(&(*node)->left);
+    free_huffman_node(&(*node)->right);
+    free(*node);
+}
+
+void free_frequency_list(Huffman_Node **node)
+{
+    Huffman_Node *curret = *node;
+    while (curret != NULL)
+    {
+        Huffman_Node *temp = curret;
+        curret = curret->next;
+        free(temp);
+    }
+    *node = NULL;
+}
+
+void free_huffman_tree(Huffman_Tree **tree)
+{
+    log_message(LOG_DEBUG, "Freeing Huffman_Tree.");
+    if ((*tree)->first_node)
+        if ((*tree)->height != 0)
+            free_huffman_node(&(*tree)->first_node);
+        else
+            free_frequency_list(&(*tree)->first_node);
+
+    free((*tree));
+    *tree = NULL;
+}

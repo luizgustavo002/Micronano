@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(Micronano C)
 
+option(ENABLE_ASAN "Enable AddressSanitizer" ON)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/output)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -18,6 +19,14 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
 add_compile_options(-Wall -Wextra -Wpedantic)
+if(ENABLE_ASAN)
+    if(MSVC)
+        add_compile_options(/fsanitize=address /Zi) # Windows Flags
+    else()
+        add_compile_options(-fsanitize=address -g -fno-omit-frame-pointer) # Linux/Mac Flags
+        add_link_options(-fsanitize=address)
+    endif()
+endif()
 
 add_library(core_lib STATIC
     src/core/bytes_manager.c
@@ -39,13 +48,13 @@ if (BUILD_TESTING)
 
     add_executable(test_bytes_manager tests/test_bytes_manager.c)
     add_executable(test_logger tests/test_logger.c)
-    add_executable(test_huffman tests/test_huffman_encoder.c)
+    add_executable(test_huffman_encoder tests/test_huffman_encoder.c)
 
     target_link_libraries(test_bytes_manager PRIVATE core_lib unity test_helpers)
     target_link_libraries(test_logger PRIVATE core_lib unity test_helpers)
-    target_link_libraries(test_huffman PRIVATE core_lib unity test_helpers)
+    target_link_libraries(test_huffman_encoder PRIVATE core_lib unity test_helpers)
 
     add_test(NAME bytes_manage_test COMMAND test_bytes_manager)
     add_test(NAME logger_test COMMAND test_logger)
-    add_test(NAME huffman_test COMMAND test_huffman)
+    add_test(NAME huffman_encoder_test COMMAND test_huffman_encoder)
 endif()

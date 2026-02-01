@@ -13,8 +13,11 @@ Status create_temp_file(const char *path, const unsigned char *data, size_t size
         return ERROR_FILE_DOES_NOT_EXIST;
     }
     
-    if (data = "")
+    if (size == 0 || data == NULL)
+    {
+        fclose(file);
         return STATUS_OK;
+    }
 
     size_t result = fwrite(data, size, 1, file);
     if (result != 1)

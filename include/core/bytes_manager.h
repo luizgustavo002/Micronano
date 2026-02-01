@@ -8,8 +8,8 @@ typedef struct Bytes_Reader Bytes_Reader;
 
 Status create_bytes_writer(Bytes_Writer **writer, FILE *file);
 Status create_bytes_reader(Bytes_Reader **reader, FILE *file);
-void free_struct_bytes_writer(Bytes_Writer *writer);
-void free_struct_bytes_reader(Bytes_Reader *reader);
+void free_bytes_writer(Bytes_Writer **writer);
+void free_bytes_reader(Bytes_Reader **reader);
 
 Status write_bit_to_file(int bit, Bytes_Writer *write);
 Status write_multiple_bits_to_file(int bits, int size, Bytes_Writer *writer);
