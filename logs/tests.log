@@ -1,0 +1,612 @@
+[2026-02-02 16:14:56] [INFO] Running create_frequency_list_1 test
+[2026-02-02 16:14:56] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:14:56] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:14:56] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:14:56] [DEBUG] Creating frequency list.
+[2026-02-02 16:14:56] [DEBUG] Counting character frequencies
+[2026-02-02 16:14:56] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:14:56] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:14:56] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:14:56] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:14:56] [INFO] Running create_frequency_list_empty test
+[2026-02-02 16:14:56] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:14:56] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:14:56] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:14:56] [DEBUG] Creating frequency list.
+[2026-02-02 16:14:56] [DEBUG] Counting character frequencies
+[2026-02-02 16:14:56] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:14:56] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:14:56] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:14:56] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:14:56] [INFO] Running build_huffman_tree_1 test
+[2026-02-02 16:14:56] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:14:56] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:14:56] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:14:56] [DEBUG] Creating frequency list.
+[2026-02-02 16:14:56] [DEBUG] Counting character frequencies
+[2026-02-02 16:14:56] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:14:56] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:14:56] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:14:56] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:14:56] [INFO] Running build_huffman_tree_empty test
+[2026-02-02 16:14:56] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:14:56] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:14:56] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:14:56] [DEBUG] Creating frequency list.
+[2026-02-02 16:14:56] [DEBUG] Counting character frequencies
+[2026-02-02 16:15:03] [INFO] Running create_frequency_list_1 test
+[2026-02-02 16:15:03] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:15:03] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:15:03] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:15:03] [DEBUG] Creating frequency list.
+[2026-02-02 16:15:03] [DEBUG] Counting character frequencies
+[2026-02-02 16:15:03] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:15:03] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:15:03] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:15:03] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:15:03] [INFO] Running create_frequency_list_empty test
+[2026-02-02 16:15:03] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:15:03] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:15:03] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:15:03] [DEBUG] Creating frequency list.
+[2026-02-02 16:15:03] [DEBUG] Counting character frequencies
+[2026-02-02 16:15:03] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:15:03] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:15:03] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:15:03] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:15:03] [INFO] Running build_huffman_tree_1 test
+[2026-02-02 16:15:03] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:15:03] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:15:03] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:15:03] [DEBUG] Creating frequency list.
+[2026-02-02 16:15:03] [DEBUG] Counting character frequencies
+[2026-02-02 16:15:03] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:15:03] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:15:03] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:15:03] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:15:03] [INFO] Running build_huffman_tree_empty test
+[2026-02-02 16:15:03] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:15:03] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:15:03] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:15:03] [DEBUG] Creating frequency list.
+[2026-02-02 16:15:03] [DEBUG] Counting character frequencies
+[2026-02-02 16:15:12] [INFO] Running create_frequency_list_1 test
+[2026-02-02 16:15:12] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:15:12] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:15:12] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:15:12] [DEBUG] Creating frequency list.
+[2026-02-02 16:15:12] [DEBUG] Counting character frequencies
+[2026-02-02 16:15:12] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:15:12] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:15:12] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:15:12] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:15:12] [INFO] Running create_frequency_list_empty test
+[2026-02-02 16:15:12] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:15:12] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:15:12] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:15:12] [DEBUG] Creating frequency list.
+[2026-02-02 16:15:12] [DEBUG] Counting character frequencies
+[2026-02-02 16:15:12] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:15:12] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:15:12] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:15:12] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:15:12] [INFO] Running build_huffman_tree_1 test
+[2026-02-02 16:15:12] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:15:12] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:15:12] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:15:12] [DEBUG] Creating frequency list.
+[2026-02-02 16:15:12] [DEBUG] Counting character frequencies
+[2026-02-02 16:15:12] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:15:12] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:15:12] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:15:12] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:15:12] [INFO] Running build_huffman_tree_empty test
+[2026-02-02 16:15:12] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:15:12] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:15:12] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:15:12] [DEBUG] Creating frequency list.
+[2026-02-02 16:15:12] [DEBUG] Counting character frequencies
+[2026-02-02 16:15:21] [INFO] Running create_frequency_list_1 test
+[2026-02-02 16:15:21] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:15:21] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:15:21] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:15:21] [DEBUG] Creating frequency list.
+[2026-02-02 16:15:21] [DEBUG] Counting character frequencies
+[2026-02-02 16:15:21] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:15:21] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:15:21] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:15:21] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:15:21] [INFO] Running create_frequency_list_empty test
+[2026-02-02 16:15:21] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:15:21] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:15:21] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:15:21] [DEBUG] Creating frequency list.
+[2026-02-02 16:15:21] [DEBUG] Counting character frequencies
+[2026-02-02 16:15:21] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:15:21] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:15:21] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:15:21] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:15:21] [INFO] Running build_huffman_tree_1 test
+[2026-02-02 16:15:21] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:15:21] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:15:21] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:15:21] [DEBUG] Creating frequency list.
+[2026-02-02 16:15:21] [DEBUG] Counting character frequencies
+[2026-02-02 16:15:21] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:15:21] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:15:21] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:15:21] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:15:21] [INFO] Running build_huffman_tree_empty test
+[2026-02-02 16:15:21] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:15:21] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:15:21] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:15:21] [DEBUG] Creating frequency list.
+[2026-02-02 16:15:21] [DEBUG] Counting character frequencies
+[2026-02-02 16:15:21] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:15:21] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:15:21] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:15:21] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:15:29] [INFO] Running create_frequency_list_1 test
+[2026-02-02 16:15:29] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:15:29] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:15:29] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:15:29] [DEBUG] Creating frequency list.
+[2026-02-02 16:15:29] [DEBUG] Counting character frequencies
+[2026-02-02 16:15:29] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:15:29] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:15:29] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:15:29] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:15:29] [INFO] Running create_frequency_list_empty test
+[2026-02-02 16:15:29] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:15:29] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:15:29] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:15:29] [DEBUG] Creating frequency list.
+[2026-02-02 16:15:29] [DEBUG] Counting character frequencies
+[2026-02-02 16:15:29] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:15:29] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:15:29] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:15:29] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:15:29] [INFO] Running build_huffman_tree_1 test
+[2026-02-02 16:15:29] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:15:29] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:15:29] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:15:29] [DEBUG] Creating frequency list.
+[2026-02-02 16:15:29] [DEBUG] Counting character frequencies
+[2026-02-02 16:15:29] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:15:29] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:15:29] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:15:29] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:15:29] [INFO] Running build_huffman_tree_empty test
+[2026-02-02 16:15:29] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:15:29] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:15:29] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:15:29] [DEBUG] Creating frequency list.
+[2026-02-02 16:15:29] [DEBUG] Counting character frequencies
+[2026-02-02 16:16:30] [INFO] Running create_frequency_list_1 test
+[2026-02-02 16:16:30] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:16:30] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:16:30] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:16:30] [DEBUG] Creating frequency list.
+[2026-02-02 16:16:30] [DEBUG] Counting character frequencies
+[2026-02-02 16:16:30] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:16:30] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:16:30] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:16:30] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:16:30] [INFO] Running create_frequency_list_empty test
+[2026-02-02 16:16:30] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:16:30] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:16:30] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:16:30] [DEBUG] Creating frequency list.
+[2026-02-02 16:16:30] [DEBUG] Counting character frequencies
+[2026-02-02 16:16:30] [INFO] Running build_huffman_tree_1 test
+[2026-02-02 16:16:30] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:16:30] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:16:30] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:16:30] [DEBUG] Creating frequency list.
+[2026-02-02 16:16:30] [DEBUG] Counting character frequencies
+[2026-02-02 16:16:30] [INFO] Running build_huffman_tree_empty test
+[2026-02-02 16:16:30] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:16:30] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:16:30] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:16:30] [DEBUG] Creating frequency list.
+[2026-02-02 16:16:30] [DEBUG] Counting character frequencies
+[2026-02-02 16:16:39] [INFO] Running create_frequency_list_1 test
+[2026-02-02 16:16:39] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:16:39] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:16:39] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:16:39] [DEBUG] Creating frequency list.
+[2026-02-02 16:16:39] [DEBUG] Counting character frequencies
+[2026-02-02 16:16:39] [INFO] Running create_frequency_list_empty test
+[2026-02-02 16:16:39] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:16:39] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:16:39] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:16:39] [DEBUG] Creating frequency list.
+[2026-02-02 16:16:39] [DEBUG] Counting character frequencies
+[2026-02-02 16:16:39] [INFO] Running build_huffman_tree_1 test
+[2026-02-02 16:16:39] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:16:39] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:16:39] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:16:39] [DEBUG] Creating frequency list.
+[2026-02-02 16:16:39] [DEBUG] Counting character frequencies
+[2026-02-02 16:16:39] [INFO] Running build_huffman_tree_empty test
+[2026-02-02 16:16:39] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:16:39] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:16:39] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:16:39] [DEBUG] Creating frequency list.
+[2026-02-02 16:16:39] [DEBUG] Counting character frequencies
+[2026-02-02 16:16:45] [INFO] Running create_frequency_list_1 test
+[2026-02-02 16:16:45] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:16:45] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:16:45] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:16:45] [DEBUG] Creating frequency list.
+[2026-02-02 16:16:45] [DEBUG] Counting character frequencies
+[2026-02-02 16:16:45] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:16:45] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:16:45] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:16:45] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:16:45] [INFO] Running create_frequency_list_empty test
+[2026-02-02 16:16:45] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:16:45] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:16:45] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:16:45] [DEBUG] Creating frequency list.
+[2026-02-02 16:16:45] [DEBUG] Counting character frequencies
+[2026-02-02 16:16:45] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:16:45] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:16:45] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:16:45] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:16:45] [INFO] Running build_huffman_tree_1 test
+[2026-02-02 16:16:45] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:16:45] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:16:45] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:16:45] [DEBUG] Creating frequency list.
+[2026-02-02 16:16:45] [DEBUG] Counting character frequencies
+[2026-02-02 16:16:45] [INFO] Running build_huffman_tree_empty test
+[2026-02-02 16:16:45] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:16:45] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:16:45] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:16:45] [DEBUG] Creating frequency list.
+[2026-02-02 16:16:45] [DEBUG] Counting character frequencies
+[2026-02-02 16:16:51] [INFO] Running create_frequency_list_1 test
+[2026-02-02 16:16:51] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:16:51] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:16:51] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:16:51] [DEBUG] Creating frequency list.
+[2026-02-02 16:16:51] [DEBUG] Counting character frequencies
+[2026-02-02 16:16:51] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:16:51] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:16:51] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:16:51] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:16:51] [INFO] Running create_frequency_list_empty test
+[2026-02-02 16:16:51] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:16:51] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:16:51] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:16:51] [DEBUG] Creating frequency list.
+[2026-02-02 16:16:51] [DEBUG] Counting character frequencies
+[2026-02-02 16:16:51] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:16:51] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:16:51] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:16:51] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:16:51] [INFO] Running build_huffman_tree_1 test
+[2026-02-02 16:16:51] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:16:51] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:16:51] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:16:51] [DEBUG] Creating frequency list.
+[2026-02-02 16:16:51] [DEBUG] Counting character frequencies
+[2026-02-02 16:16:51] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:16:51] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:16:51] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:16:51] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:16:51] [INFO] Running build_huffman_tree_empty test
+[2026-02-02 16:16:51] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:16:51] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:16:51] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:16:51] [DEBUG] Creating frequency list.
+[2026-02-02 16:16:51] [DEBUG] Counting character frequencies
+[2026-02-02 16:17:02] [INFO] Running create_frequency_list_1 test
+[2026-02-02 16:17:02] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:17:02] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:17:02] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:17:02] [DEBUG] Creating frequency list.
+[2026-02-02 16:17:02] [DEBUG] Counting character frequencies
+[2026-02-02 16:17:02] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:17:02] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:17:02] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:17:02] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:17:02] [INFO] Running create_frequency_list_empty test
+[2026-02-02 16:17:02] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:17:02] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:17:02] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:17:02] [DEBUG] Creating frequency list.
+[2026-02-02 16:17:02] [DEBUG] Counting character frequencies
+[2026-02-02 16:17:02] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:17:02] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:17:02] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:17:02] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:17:02] [INFO] Running build_huffman_tree_1 test
+[2026-02-02 16:17:02] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:17:02] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:17:02] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:17:02] [DEBUG] Creating frequency list.
+[2026-02-02 16:17:02] [DEBUG] Counting character frequencies
+[2026-02-02 16:17:02] [INFO] Running build_huffman_tree_empty test
+[2026-02-02 16:17:02] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:17:02] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:17:02] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:17:02] [DEBUG] Creating frequency list.
+[2026-02-02 16:17:02] [DEBUG] Counting character frequencies
+[2026-02-02 16:17:02] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:17:02] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:17:02] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:17:02] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:20:05] [INFO] Running create_frequency_list_1 test
+[2026-02-02 16:20:05] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:20:05] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:20:05] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:20:05] [DEBUG] Creating frequency list.
+[2026-02-02 16:20:05] [DEBUG] Counting character frequencies
+[2026-02-02 16:20:05] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:20:05] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:20:05] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:20:05] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:20:05] [INFO] Running create_frequency_list_empty test
+[2026-02-02 16:20:05] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:20:05] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:20:05] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:20:05] [DEBUG] Creating frequency list.
+[2026-02-02 16:20:05] [DEBUG] Counting character frequencies
+[2026-02-02 16:20:05] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:20:05] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:20:05] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:20:05] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:20:05] [INFO] Running build_huffman_tree_1 test
+[2026-02-02 16:20:05] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:20:05] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:20:05] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:20:05] [DEBUG] Creating frequency list.
+[2026-02-02 16:20:05] [DEBUG] Counting character frequencies
+[2026-02-02 16:20:05] [INFO] Running build_huffman_tree_empty test
+[2026-02-02 16:20:05] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:20:05] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:20:05] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:20:05] [DEBUG] Creating frequency list.
+[2026-02-02 16:20:05] [DEBUG] Counting character frequencies
+[2026-02-02 16:20:05] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:20:05] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:20:05] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:20:05] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:20:17] [INFO] Running create_frequency_list_1 test
+[2026-02-02 16:20:17] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:20:17] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:20:17] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:20:17] [DEBUG] Creating frequency list.
+[2026-02-02 16:20:17] [DEBUG] Counting character frequencies
+[2026-02-02 16:20:17] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:20:17] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:20:17] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:20:17] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:20:17] [INFO] Running create_frequency_list_empty test
+[2026-02-02 16:20:17] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:20:17] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:20:17] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:20:17] [DEBUG] Creating frequency list.
+[2026-02-02 16:20:17] [DEBUG] Counting character frequencies
+[2026-02-02 16:20:17] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:20:17] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:20:17] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:20:17] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:20:17] [INFO] Running build_huffman_tree_1 test
+[2026-02-02 16:20:17] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:20:17] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:20:17] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:20:17] [DEBUG] Creating frequency list.
+[2026-02-02 16:20:17] [DEBUG] Counting character frequencies
+[2026-02-02 16:20:17] [INFO] Running build_huffman_tree_empty test
+[2026-02-02 16:20:17] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:20:17] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:20:17] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:20:17] [DEBUG] Creating frequency list.
+[2026-02-02 16:20:17] [DEBUG] Counting character frequencies
+[2026-02-02 16:20:17] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:20:17] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:20:17] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:20:17] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:20:23] [INFO] Running create_frequency_list_1 test
+[2026-02-02 16:20:23] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:20:23] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:20:23] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:20:23] [DEBUG] Creating frequency list.
+[2026-02-02 16:20:23] [DEBUG] Counting character frequencies
+[2026-02-02 16:20:23] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:20:23] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:20:23] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:20:23] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:20:23] [INFO] Running create_frequency_list_empty test
+[2026-02-02 16:20:23] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:20:23] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:20:23] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:20:23] [DEBUG] Creating frequency list.
+[2026-02-02 16:20:23] [DEBUG] Counting character frequencies
+[2026-02-02 16:20:23] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:20:23] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:20:23] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:20:23] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:20:23] [INFO] Running build_huffman_tree_1 test
+[2026-02-02 16:20:23] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:20:23] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:20:23] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:20:23] [DEBUG] Creating frequency list.
+[2026-02-02 16:20:23] [DEBUG] Counting character frequencies
+[2026-02-02 16:20:23] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:20:23] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:20:23] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:20:23] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:20:23] [INFO] Running build_huffman_tree_empty test
+[2026-02-02 16:20:23] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:20:23] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:20:23] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:20:23] [DEBUG] Creating frequency list.
+[2026-02-02 16:20:23] [DEBUG] Counting character frequencies
+[2026-02-02 16:20:23] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:20:23] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:20:23] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:20:23] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:20:30] [INFO] Running create_frequency_list_1 test
+[2026-02-02 16:20:30] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:20:30] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:20:30] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:20:30] [DEBUG] Creating frequency list.
+[2026-02-02 16:20:30] [DEBUG] Counting character frequencies
+[2026-02-02 16:20:30] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:20:30] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:20:30] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:20:30] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:20:30] [INFO] Running create_frequency_list_empty test
+[2026-02-02 16:20:30] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:20:30] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:20:30] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:20:30] [DEBUG] Creating frequency list.
+[2026-02-02 16:20:30] [DEBUG] Counting character frequencies
+[2026-02-02 16:20:30] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:20:30] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:20:30] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:20:30] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:20:30] [INFO] Running build_huffman_tree_1 test
+[2026-02-02 16:20:30] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:20:30] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:20:30] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:20:30] [DEBUG] Creating frequency list.
+[2026-02-02 16:20:30] [DEBUG] Counting character frequencies
+[2026-02-02 16:20:30] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:20:30] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:20:30] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:20:30] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:20:30] [INFO] Running build_huffman_tree_empty test
+[2026-02-02 16:20:30] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:20:30] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:20:30] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:20:30] [DEBUG] Creating frequency list.
+[2026-02-02 16:20:30] [DEBUG] Counting character frequencies
+[2026-02-02 16:20:30] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:20:30] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:20:30] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:20:30] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:20:35] [INFO] Running create_frequency_list_1 test
+[2026-02-02 16:20:35] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:20:35] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:20:35] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:20:35] [DEBUG] Creating frequency list.
+[2026-02-02 16:20:35] [DEBUG] Counting character frequencies
+[2026-02-02 16:20:35] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:20:35] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:20:35] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:20:35] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:20:35] [INFO] Running create_frequency_list_empty test
+[2026-02-02 16:20:35] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:20:35] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:20:35] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:20:35] [DEBUG] Creating frequency list.
+[2026-02-02 16:20:35] [DEBUG] Counting character frequencies
+[2026-02-02 16:20:35] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:20:35] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:20:35] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:20:35] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:20:35] [INFO] Running build_huffman_tree_1 test
+[2026-02-02 16:20:35] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:20:35] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:20:35] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:20:35] [DEBUG] Creating frequency list.
+[2026-02-02 16:20:35] [DEBUG] Counting character frequencies
+[2026-02-02 16:20:35] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:20:35] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:20:35] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:20:35] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:20:35] [INFO] Running build_huffman_tree_empty test
+[2026-02-02 16:20:35] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:20:35] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:20:35] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:20:35] [DEBUG] Creating frequency list.
+[2026-02-02 16:20:35] [DEBUG] Counting character frequencies
+[2026-02-02 16:20:35] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:20:35] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:20:35] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:20:35] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:21:06] [INFO] Running create_frequency_list_1 test
+[2026-02-02 16:21:06] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:21:06] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:21:06] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:21:06] [DEBUG] Creating frequency list.
+[2026-02-02 16:21:06] [DEBUG] Counting character frequencies
+[2026-02-02 16:21:06] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:21:06] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:21:06] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:21:06] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:21:06] [INFO] Running create_frequency_list_empty test
+[2026-02-02 16:21:06] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:21:06] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:21:06] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:21:06] [DEBUG] Creating frequency list.
+[2026-02-02 16:21:06] [DEBUG] Counting character frequencies
+[2026-02-02 16:21:06] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:21:06] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:21:06] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:21:06] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:21:06] [INFO] Running build_huffman_tree_1 test
+[2026-02-02 16:21:06] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:21:06] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:21:06] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:21:06] [DEBUG] Creating frequency list.
+[2026-02-02 16:21:06] [DEBUG] Counting character frequencies
+[2026-02-02 16:21:06] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:21:06] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:21:06] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:21:06] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:21:06] [INFO] Running build_huffman_tree_empty test
+[2026-02-02 16:21:06] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:21:06] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:21:06] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:21:06] [DEBUG] Creating frequency list.
+[2026-02-02 16:21:06] [DEBUG] Counting character frequencies
+[2026-02-02 16:21:06] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:21:06] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:21:06] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:21:06] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:21:23] [INFO] Running create_frequency_list_1 test
+[2026-02-02 16:21:23] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:21:23] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:21:23] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:21:23] [DEBUG] Creating frequency list.
+[2026-02-02 16:21:23] [DEBUG] Counting character frequencies
+[2026-02-02 16:21:23] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:21:23] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:21:23] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:21:23] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:21:23] [INFO] Running create_frequency_list_empty test
+[2026-02-02 16:21:23] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:21:23] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:21:23] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:21:23] [DEBUG] Creating frequency list.
+[2026-02-02 16:21:23] [DEBUG] Counting character frequencies
+[2026-02-02 16:21:23] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:21:23] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:21:23] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:21:23] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:21:23] [INFO] Running build_huffman_tree_1 test
+[2026-02-02 16:21:23] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:21:23] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:21:23] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:21:23] [DEBUG] Creating frequency list.
+[2026-02-02 16:21:23] [DEBUG] Counting character frequencies
+[2026-02-02 16:21:23] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:21:23] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:21:23] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:21:23] [DEBUG] Freeing Huffman_Tree.
+[2026-02-02 16:21:23] [INFO] Running build_huffman_tree_empty test
+[2026-02-02 16:21:23] [DEBUG] Creating Huffman_Encoder.
+[2026-02-02 16:21:23] [DEBUG] Creating Bytes_Reader.
+[2026-02-02 16:21:23] [DEBUG] Creating Bytes_Writer.
+[2026-02-02 16:21:23] [DEBUG] Creating frequency list.
+[2026-02-02 16:21:23] [DEBUG] Counting character frequencies
+[2026-02-02 16:21:23] [DEBUG] Freeing Huffman_Encoder.
+[2026-02-02 16:21:23] [DEBUG] Freeing Bytes_Writer.
+[2026-02-02 16:21:23] [DEBUG] Freeing Bytes_Reader.
+[2026-02-02 16:21:23] [DEBUG] Freeing Huffman_Tree.

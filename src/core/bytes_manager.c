@@ -4,18 +4,19 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 
 struct Bytes_Writer
 {
-    unsigned char buffer_byte;
-    int bits_written;
+    uint8_t buffer_byte;
+    uint8_t bits_written;
     FILE *file;
 };
 
 struct Bytes_Reader
 {
-    unsigned char buffer_byte;
-    int remaining_bits;
+    uint8_t buffer_byte;
+    uint8_t remaining_bits;
     FILE *file;
 };
 
@@ -46,26 +47,11 @@ Status create_bytes_reader(Bytes_Reader **reader, FILE *file)
     return STATUS_OK;
 }
 
-void free_bytes_writer(Bytes_Writer **writer)
-{
-    log_message(LOG_DEBUG, "Freeing Bytes_Writer.");
-    if (*writer)
-        free(*writer);
-    *writer = NULL;
-}
-
-void free_bytes_reader(Bytes_Reader **reader)
-{
-    log_message(LOG_DEBUG, "Freeing Bytes_Reader.");
-    if (*reader)
-        free(*reader);
-    *reader = NULL;
-}
-
+//--------------- Writer ---------------
 static Status write_to_file(Bytes_Writer *writer)
 {
     //log_message(LOG_DEBUG, "Reading byte from file.");
-    size_t result = fwrite(&writer->buffer_byte, sizeof(unsigned char), 1, writer->file);
+    size_t result = fwrite(&writer->buffer_byte, sizeof(uint8_t), 1, writer->file);
     if (result != 1)
     {
         log_message(LOG_ERROR, "Could not write to file");
@@ -76,9 +62,9 @@ static Status write_to_file(Bytes_Writer *writer)
     return STATUS_OK;
 }
 
-Status write_bit_to_file(int bit, Bytes_Writer *writer)
+Status write_bit_to_file(uint8_t bit, Bytes_Writer *writer)
 {
-    unsigned char byte = writer->buffer_byte;
+    uint8_t byte = writer->buffer_byte;
     writer->buffer_byte = (byte << 1) | bit;
     writer->bits_written += 1;
 
@@ -91,11 +77,11 @@ Status write_bit_to_file(int bit, Bytes_Writer *writer)
     return STATUS_OK;
 }
 
-Status write_multiple_bits_to_file(int bits, int size, Bytes_Writer *writer)
+Status write_multiple_bits_to_file(uint64_t bits, uint8_t size, Bytes_Writer *writer)
 {
     for (int i = size; i > 0; i--)
     {
-        int bit = (bits >> (i - 1)) & 1;
+        uint8_t bit = (bits >> (i - 1)) & 1;
         Status status = write_bit_to_file(bit, writer);
         if (status)
             return status;
@@ -103,23 +89,19 @@ Status write_multiple_bits_to_file(int bits, int size, Bytes_Writer *writer)
     return STATUS_OK;
 }
 
-Status write_byte_to_file(unsigned char byte, Bytes_Writer *writer)
+Status write_byte_to_file(uint8_t byte, Bytes_Writer *writer)
 {
-    for (int i = 7; i >= 0; i--)
-    {
-        int bit = (byte >> i) & 1;
-        Status status = write_bit_to_file(bit, writer);
-        if (status)
-            return status;
-    }
+    Status status = write_multiple_bits_to_file(byte, 8, writer);
+    if (status)
+        return status;
     return STATUS_OK;
 }
 
-Status write_multiple_bytes_to_file(unsigned char *bytes, int size, Bytes_Writer *writer)
+Status write_multiple_bytes_to_file(uint8_t *bytes, int size, Bytes_Writer *writer)
 {
-    for (int i = 0; i < size; i++)
+    for (uint8_t *p = bytes; p < bytes + size; p++)
     {
-        Status status = write_byte_to_file(bytes[i], writer);
+        Status status = write_byte_to_file(*p, writer);
         if (status)
             return status;
     }
@@ -138,9 +120,10 @@ Status write_padding(Bytes_Writer *writer)
     return STATUS_OK;
 }
 
+//--------------- Reader ---------------
 static Status read_file(Bytes_Reader *reader)
 {
-    size_t result = fread(&reader->buffer_byte, sizeof(unsigned char), 1, reader->file);
+    size_t result = fread(&reader->buffer_byte, sizeof(uint8_t), 1, reader->file);
     if (!result)
     {
         if (feof(reader->file))
@@ -153,7 +136,7 @@ static Status read_file(Bytes_Reader *reader)
     return STATUS_OK;
 }
 
-Status read_bit_from_file(int *bit, Bytes_Reader *reader)
+Status read_bit_from_file(uint8_t *bit, Bytes_Reader *reader)
 {
     *bit = 0;
     if (reader->remaining_bits == 0)
@@ -169,10 +152,10 @@ Status read_bit_from_file(int *bit, Bytes_Reader *reader)
     return STATUS_OK;
 }
 
-Status read_multiple_bits_from_file(int *bits, int size, Bytes_Reader *reader)
+Status read_multiple_bits_from_file(uint64_t *bits, uint8_t size, Bytes_Reader *reader)
 {
     *bits = 0;
-    int bit = 0;
+    uint8_t bit = 0;
     for (int i = 0; i < size; i++)
     {
         Status status = read_bit_from_file(&bit, reader);
@@ -183,24 +166,21 @@ Status read_multiple_bits_from_file(int *bits, int size, Bytes_Reader *reader)
     return STATUS_OK;
 }
 
-Status read_byte_from_file(unsigned char *byte, Bytes_Reader *reader)
+Status read_byte_from_file(uint8_t *byte, Bytes_Reader *reader)
 {
     *byte = 0;
-    int bit;
-    for (int i = 0; i < 8; i++)
-    {
-        Status status = read_bit_from_file(&bit, reader);
-        if (status)
-            return status;
-        *byte = (*byte << 1) | bit;
-    }
+    uint64_t temp = 0;
+    Status status = read_multiple_bits_from_file(&temp, 8, reader);
+    if (status)
+        return status;
 
+    *byte = temp;
     return STATUS_OK;
 }
 
-Status read_multiple_bytes_from_file(unsigned char *bytes, int size, Bytes_Reader *reader)
+Status read_multiple_bytes_from_file(uint8_t *bytes, int size, Bytes_Reader *reader)
 {
-    unsigned char byte = 0;
+    uint8_t byte = 0;
     for (int i = 0; i < size; i++)
     {
         Status status = read_byte_from_file(&byte, reader);
@@ -209,4 +189,23 @@ Status read_multiple_bytes_from_file(unsigned char *bytes, int size, Bytes_Reade
         bytes[i] = byte;
     }
     return STATUS_OK;
+}
+
+//--------------- Free memory ---------------
+void free_bytes_writer(Bytes_Writer **writer)
+{
+    log_message(LOG_DEBUG, "Freeing Bytes_Writer.");
+    fclose((*writer)->file);
+    if (*writer)
+        free(*writer);
+    *writer = NULL;
+}
+
+void free_bytes_reader(Bytes_Reader **reader)
+{
+    log_message(LOG_DEBUG, "Freeing Bytes_Reader.");
+    fclose((*reader)->file);
+    if (*reader)
+        free(*reader);
+    *reader = NULL;
 }

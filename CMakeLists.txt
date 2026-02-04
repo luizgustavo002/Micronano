@@ -49,12 +49,16 @@ if (BUILD_TESTING)
     add_executable(test_bytes_manager tests/test_bytes_manager.c)
     add_executable(test_logger tests/test_logger.c)
     add_executable(test_huffman_encoder tests/test_huffman_encoder.c)
+    add_executable(test_file_manager tests/test_file_manager.c)
 
     target_link_libraries(test_bytes_manager PRIVATE core_lib unity test_helpers)
     target_link_libraries(test_logger PRIVATE core_lib unity test_helpers)
     target_link_libraries(test_huffman_encoder PRIVATE core_lib unity test_helpers)
+    target_link_libraries(test_file_manager PRIVATE core_lib unity test_helpers)
 
     add_test(NAME bytes_manage_test COMMAND test_bytes_manager)
     add_test(NAME logger_test COMMAND test_logger)
     add_test(NAME huffman_encoder_test COMMAND test_huffman_encoder)
+    add_test(NAME file_manager_test COMMAND test_file_manager)
+
 endif()

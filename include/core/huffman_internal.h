@@ -2,6 +2,8 @@
 #define HUFFMAN_INTERNAL_H
 #include "huffman.h"
 #include "bytes_manager.h"
+#include "file_manager.h"
+#include <stdint.h>
 
 #define ASCII_SIZE 256
 #define ASSERT_STATUS_OK(status) \
@@ -13,13 +15,14 @@
         }                        \
     } while (0)
 
-
 struct Huffman_Encoder
 {
     Bytes_Writer *writer;
     Bytes_Reader *reader;
-    unsigned int char_frequency[ASCII_SIZE];
+    File_Header *file_header;
+    uint64_t char_frequency[ASCII_SIZE];
     Huffman_Tree *huffman_tree;
+    char *huffman_codes[ASCII_SIZE];
 };
 
 struct Huffman_Decoder
@@ -31,14 +34,14 @@ struct Huffman_Decoder
 struct Huffman_Tree
 {
     Huffman_Node *first_node;
-    unsigned int size;
-    unsigned int height;
+    uint16_t size;
+    uint8_t height;
 };
 
 struct Huffman_Node
 {
     unsigned char symbol;
-    unsigned int frequency;
+    uint64_t frequency;
     Huffman_Node *next;
     Huffman_Node *right;
     Huffman_Node *left;

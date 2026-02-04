@@ -61,6 +61,5 @@ int main()
 {
     UNITY_BEGIN();
     RUN_TEST(test_logger);
-    UNITY_END();
-    return 0;
+    return UNITY_END();
 }
