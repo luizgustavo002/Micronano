@@ -8,29 +8,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-Status create_huffman_decoder(Huffman_Decoder **decoder, const char *input_path, const char *output_path)
+Status new_huffman_node(Huffman_Node **node, Huffman_Node *left_node, Huffman_Node *right_node)
 {
-    log_message(LOG_DEBUG, "Creating Huffman_Decoder.");
-    *decoder = (Huffman_Decoder *)calloc(1, sizeof(Huffman_Decoder));
-    if (!(*decoder))
+
+    Huffman_Node *new_node = (Huffman_Node *)calloc(1, sizeof(Huffman_Node));
+    if (new_node == NULL)
     {
-        log_message(LOG_ERROR, "Failed to allocate memory for Huffman_Decoder.");
+        log_message(LOG_ERROR, "Failed to allocate memory for Huffman_Node.");
+        *node = NULL;
         return ERROR_MEMORY_ALLOCATION;
     }
 
-    Status status;
-    FILE *input_file;
-    status = open_file(&input_file, input_path, "rb");
-    ASSERT_STATUS_OK(status);
-    status = create_bytes_reader(&(*decoder)->reader, input_file);
-    ASSERT_STATUS_OK(status);
+    new_node->symbol = (unsigned char)0;
 
-    FILE *output_file;
-    status = open_file(&output_file, output_path, "wb");
-    ASSERT_STATUS_OK(status);
-    status = create_bytes_writer(&(*decoder)->writer, input_file);
-    ASSERT_STATUS_OK(status);
+    if (left_node != NULL && right_node != NULL)
+        new_node->frequency = left_node->frequency + right_node->frequency;
+    else
+        new_node->frequency = 0;
 
+    new_node->right = right_node;
+    new_node->left = left_node;
+    new_node->next = NULL;
+    *node = new_node;
     return STATUS_OK;
 }
 
@@ -60,6 +59,7 @@ static void free_huffman_node(Huffman_Node **node)
     free_huffman_node(&(*node)->left);
     free_huffman_node(&(*node)->right);
     free(*node);
+    *node = NULL;
 }
 
 void free_frequency_list(Huffman_Node **node)
@@ -82,7 +82,7 @@ void free_huffman_tree(Huffman_Tree **tree)
 
     if ((*tree)->first_node)
     {
-        if ((*tree)->height != 0)
+        if ((*tree)->first_node->left != NULL || (*tree)->first_node->right != NULL)
             free_huffman_node(&(*tree)->first_node);
         else
             free_frequency_list(&(*tree)->first_node);

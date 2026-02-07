@@ -15,9 +15,10 @@ typedef struct Huffman_Node Huffman_Node;
 Status create_huffman_encoder(Huffman_Encoder **encoder, const char *input_path, const char *output_path);
 Status create_huffman_decoder(Huffman_Decoder **decoder, const char *input_path, const char *output_path);
 void free_huffman_encoder(Huffman_Encoder **encoder);
-void free_huffman_decoder(Huffman_Decoder *decoder);
+void free_huffman_decoder(Huffman_Decoder **decoder);
 
 //--------------- Frequency list ---------------
+Status new_huffman_node(Huffman_Node **node, Huffman_Node *left_node, Huffman_Node *right_node);
 Status create_frequency_list(Huffman_Encoder *encoder);
 
 //--------------- Huffman tree ---------------
@@ -28,7 +29,8 @@ void free_huffman_tree(Huffman_Tree **tree);
 //--------------- Huffman codes ---------------
 Status generate_codes(Huffman_Encoder *encoder, Huffman_Node *node, char *current_path);
 
-Status reset_encoder_for_next_file(Huffman_Encoder *encoder, const char *new_input_path);
+Status compress_file_simple(Huffman_Encoder *encoder);
+Status decompressed_file_simple(Huffman_Decoder *decoder);
 
 //--------------- Get data ---------------
 Huffman_Node* get_first_node(Huffman_Encoder *encoder);
@@ -38,5 +40,6 @@ Huffman_Node* get_left_node(Huffman_Node *node);
 Huffman_Node* get_right_node(Huffman_Node *node);
 unsigned char get_symbol_node(Huffman_Node *node);
 char** get_huffman_codes(Huffman_Encoder *encoder);
+Bytes_Writer *get_writer_encoder(Huffman_Encoder *encoder);
 
 #endif

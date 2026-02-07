@@ -20,6 +20,7 @@ struct Huffman_Encoder
     Bytes_Writer *writer;
     Bytes_Reader *reader;
     File_Header *file_header;
+    File_List *file_list;
     uint64_t char_frequency[ASCII_SIZE];
     Huffman_Tree *huffman_tree;
     char *huffman_codes[ASCII_SIZE];
@@ -29,6 +30,9 @@ struct Huffman_Decoder
 {
     Bytes_Writer *writer;
     Bytes_Reader *reader;
+    char *output_path;
+    File_Header *file_header;
+    Huffman_Tree *huffman_tree;
 };
 
 struct Huffman_Tree

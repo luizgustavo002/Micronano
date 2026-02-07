@@ -117,6 +117,7 @@ Status write_padding(Bytes_Writer *writer)
         if (status)
             return status;
     }
+    fflush(writer->file);
     return STATUS_OK;
 }
 
@@ -191,10 +192,24 @@ Status read_multiple_bytes_from_file(uint8_t *bytes, int size, Bytes_Reader *rea
     return STATUS_OK;
 }
 
+Status skip_padding(Bytes_Reader *reader)
+{
+    Status status;
+    uint8_t bit;
+    while (reader->remaining_bits != 0)
+    {
+        status = read_bit_from_file(&bit, reader);
+        if (status)
+            return status;
+    }
+    return STATUS_OK;
+}
 //--------------- Free memory ---------------
 void free_bytes_writer(Bytes_Writer **writer)
 {
     log_message(LOG_DEBUG, "Freeing Bytes_Writer.");
+    if (*writer == NULL)
+        return;
     fclose((*writer)->file);
     if (*writer)
         free(*writer);
@@ -204,8 +219,16 @@ void free_bytes_writer(Bytes_Writer **writer)
 void free_bytes_reader(Bytes_Reader **reader)
 {
     log_message(LOG_DEBUG, "Freeing Bytes_Reader.");
+    if (*reader == NULL)
+        return;
     fclose((*reader)->file);
     if (*reader)
         free(*reader);
     *reader = NULL;
+}
+
+//--------------- Get data ---------------
+FILE* get_file_reader(Bytes_Reader *reader)
+{
+    return reader->file;
 }

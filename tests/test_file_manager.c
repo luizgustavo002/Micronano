@@ -8,11 +8,15 @@
 #include <string.h>
 #include <unity.h>
 #include <stdint.h>
+#include <stdlib.h>
 
-const char *input_test_file_path = "temporary_input_test_file.txt";
+const char *input_test_file_path = "temporary_input_file";
+char *input_base_path;
 const char *output_test_file_path = "temporary_output_test_file.txt";
 
-const uint16_t path_size_input = 29;
+char full_path[4096] = {0};
+
+const uint16_t path_size_input = 20;
 const uint16_t path_size_output = 30;
 
 const unsigned char test_input_1[] = "AAAAACCCCEEEGGH";
@@ -48,11 +52,14 @@ void test_file_header_1()
     log_message(LOG_INFO, "Running file_header_1 test");
 
     Status status;
-    status = create_temp_file(input_test_file_path, test_input_1, sizeof(test_input_1) - sizeof(unsigned char));
+    status = create_temp_file(input_test_file_path, test_input_1, sizeof(test_input_1) - sizeof(unsigned char), full_path);
     ASSERT_STATUS_OK(status);
 
+    status = set_base_path(&input_base_path, full_path);
+    ASSERT_STATUS_OK(status);
     File_Header *file_header;
-    status = create_file_header(&file_header, input_test_file_path);
+    status = create_file_header(&file_header, full_path, input_base_path);
+    free(input_base_path);
 
     validate_file_header(file_header, path_size_input, size_test_input_1);
 
@@ -65,11 +72,14 @@ void test_file_header_empty()
     log_message(LOG_INFO, "Running file_header_1 test");
 
     Status status;
-    status = create_temp_file(input_test_file_path, test_input_empty, sizeof(test_input_empty) - sizeof(unsigned char));
+    status = create_temp_file(input_test_file_path, test_input_empty, sizeof(test_input_empty) - sizeof(unsigned char), full_path);
     ASSERT_STATUS_OK(status);
 
+    status = set_base_path(&input_base_path, full_path);
+    ASSERT_STATUS_OK(status);
     File_Header *file_header;
-    status = create_file_header(&file_header, input_test_file_path);
+    status = create_file_header(&file_header, full_path, input_base_path);
+    free(input_base_path);
 
     validate_file_header(file_header, path_size_input, size_test_input_empty);
 

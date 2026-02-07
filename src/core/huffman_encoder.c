@@ -22,19 +22,25 @@ Status create_huffman_encoder(Huffman_Encoder **encoder, const char *input_path,
 
     Status status;
 
+    
     FILE *input_file;
     status = open_file(&input_file, input_path, "rb");
     ASSERT_STATUS_OK(status);
     status = create_bytes_reader(&(*encoder)->reader, input_file);
     ASSERT_STATUS_OK(status);
-
+    
+    status = init_file_list(&(*encoder)->file_list, input_path);
+    ASSERT_STATUS_OK(status);
+    
     FILE *output_file;
-    status = open_file(&output_file, output_path, "wb");
+    char full_output_path[8192];
+    set_compress_output_file_path(full_output_path, input_path, output_path, (*encoder)->file_list);
+    status = open_file(&output_file, full_output_path, "wb");
     ASSERT_STATUS_OK(status);
     status = create_bytes_writer(&(*encoder)->writer, output_file);
     ASSERT_STATUS_OK(status);
 
-    status = create_file_header(&(*encoder)->file_header, input_path);
+    status = scan_directory((*encoder)->file_list, input_path);
     ASSERT_STATUS_OK(status);
 
     return STATUS_OK;
@@ -43,11 +49,17 @@ Status create_huffman_encoder(Huffman_Encoder **encoder, const char *input_path,
 //--------------- Char frequency ---------------
 static Status count_char_frequency(Huffman_Encoder *encoder)
 {
-    log_message(LOG_DEBUG, "Counting character frequencies");
+    log_message(LOG_DEBUG, "Counting character frequencies.");
     Bytes_Reader *reader = encoder->reader;
-    unsigned char letter;
 
     Status status = STATUS_OK;
+    unsigned char letter;
+
+    // while (fread(&letter, sizeof(letter), 1, get_file_reader(reader)) > 0);
+    // {
+    //     encoder->char_frequency[letter]++;
+    // }
+
     while (status == STATUS_OK)
     {
         status = read_byte_from_file(&letter, reader);
@@ -57,6 +69,8 @@ static Status count_char_frequency(Huffman_Encoder *encoder)
             break;
         encoder->char_frequency[letter]++;
     }
+
+    fseek(get_file_reader(reader), 0, SEEK_SET);
 
     return STATUS_OK;
 }
@@ -114,9 +128,9 @@ static void insert_sorted_node(Huffman_Node *new_node, Huffman_Encoder *encoder)
 
 Status create_frequency_list(Huffman_Encoder *encoder)
 {
-    log_message(LOG_DEBUG, "Creating frequency list.");
+    log_message(LOG_DEBUG, "Creating Frequency List.");
     if (encoder->huffman_tree == NULL)
-        encoder->huffman_tree = (Huffman_Tree *) calloc(1, sizeof(Huffman_Tree));
+        encoder->huffman_tree = (Huffman_Tree *)calloc(1, sizeof(Huffman_Tree));
 
     if (encoder->huffman_tree == NULL)
     {
@@ -147,31 +161,6 @@ Status create_frequency_list(Huffman_Encoder *encoder)
 }
 
 //--------------- Huffman tree ---------------
-static Status new_huffman_node(Huffman_Node **node, Huffman_Node *left_node, Huffman_Node *right_node)
-{
-
-    Huffman_Node *new_node = (Huffman_Node *)calloc(1, sizeof(Huffman_Node));
-    if (new_node == NULL)
-    {
-        log_message(LOG_ERROR, "Failed to allocate memory for Huffman_Node.");
-        *node = NULL;
-        return ERROR_MEMORY_ALLOCATION;
-    }
-
-    new_node->symbol = (unsigned char)0;
-
-    if (left_node != NULL && right_node != NULL)
-        new_node->frequency = left_node->frequency + right_node->frequency;
-    else
-        new_node->frequency = 0;
-
-    new_node->right = right_node;
-    new_node->left = left_node;
-    new_node->next = NULL;
-    *node = new_node;
-    return STATUS_OK;
-}
-
 Status build_huffman_tree(Huffman_Encoder *encoder)
 {
     log_message(LOG_DEBUG, "Building Huffman tree.");
@@ -222,15 +211,17 @@ static Status allocate_huffman_codes(char **huffman_codes, int height)
 
 Status generate_codes(Huffman_Encoder *encoder, Huffman_Node *node, char *current_path)
 {
-    log_message(LOG_DEBUG, "Generating Huffman codes.");
     if (encoder->huffman_tree == NULL || encoder->huffman_tree->first_node == NULL)
         build_huffman_tree(encoder);
-    
+
     Huffman_Node *first_node = encoder->huffman_tree->first_node;
     if (first_node == NULL)
         return STATUS_OK;
     if (node == NULL)
+    {
+        log_message(LOG_DEBUG, "Generating Huffman codes.");
         generate_codes(encoder, first_node, "");
+    }
 
     uint8_t height = encoder->huffman_tree->height;
 
@@ -285,6 +276,7 @@ void free_huffman_encoder(Huffman_Encoder **encoder)
     free_bytes_writer(&(*encoder)->writer);
     free_bytes_reader(&(*encoder)->reader);
     free_file_header(&(*encoder)->file_header);
+    free_file_list(&(*encoder)->file_list);
     free_huffman_tree(&(*encoder)->huffman_tree);
     free_huffman_codes((*encoder)->huffman_codes);
 
@@ -292,9 +284,72 @@ void free_huffman_encoder(Huffman_Encoder **encoder)
     *encoder = NULL;
 }
 
-//--------------- Compress file ---------------
-Status reset_encoder_for_next_file(Huffman_Encoder *encoder, const char *new_input_path)
+//--------------- Write to file  ---------------
+Status write_huffman_tree(Huffman_Encoder *encoder, Huffman_Node *node)
 {
+    Status status = STATUS_OK;
+    if (node->left == NULL && node->right == NULL)
+    {
+        status = write_multiple_bits_to_file(1, 1, encoder->writer);
+        ASSERT_STATUS_OK(status);
+        status = write_multiple_bits_to_file(node->symbol, 8, encoder->writer);
+        ASSERT_STATUS_OK(status);
+        return STATUS_OK;
+    }
+
+    write_multiple_bits_to_file(0, 1, encoder->writer);
+    write_huffman_tree(encoder, node->left);
+    write_huffman_tree(encoder, node->right);
+
+    return STATUS_OK;
+}
+
+Status write_encoded_data(Huffman_Encoder *encoder)
+{
+    Bytes_Reader *reader = encoder->reader;
+    Bytes_Writer *writer = encoder->writer;
+    Status status = STATUS_OK;
+    unsigned char letter;
+    char *code_string;
+
+    while (status == STATUS_OK)
+    {
+        status = read_byte_from_file(&letter, reader);
+        if (status != STATUS_OK && status != ERROR_END_OF_FILE)
+            return status;
+        if (status == ERROR_END_OF_FILE)
+            break;
+
+        code_string = encoder->huffman_codes[letter];
+        if (code_string == NULL)
+        {
+            log_message(LOG_ERROR, "Code not found for byte %d", letter);
+            return ERROR_GENERIC;
+        }
+
+        for (char *p = code_string; *p; p++)
+        {
+            if (*p == '1')
+            {
+                status = write_bit_to_file(1, writer);
+                ASSERT_STATUS_OK(status);
+            }
+            else
+            {
+                status = write_bit_to_file(0, writer);
+                ASSERT_STATUS_OK(status);
+            }
+        }
+    }
+
+    return STATUS_OK;
+}
+
+//--------------- Compress file ---------------
+static Status setup_compression_context(Huffman_Encoder *encoder, const char *new_input_path)
+{
+    Status status;
+
     free_bytes_reader(&encoder->reader);
     for (uint64_t *p = encoder->char_frequency; p < encoder->char_frequency + ASCII_SIZE; p++)
     {
@@ -303,7 +358,6 @@ Status reset_encoder_for_next_file(Huffman_Encoder *encoder, const char *new_inp
     free_huffman_tree(&encoder->huffman_tree);
     free_huffman_codes(encoder->huffman_codes);
 
-    Status status;
     FILE *input_file;
     status = open_file(&input_file, new_input_path, "rb");
     ASSERT_STATUS_OK(status);
@@ -311,7 +365,9 @@ Status reset_encoder_for_next_file(Huffman_Encoder *encoder, const char *new_inp
     ASSERT_STATUS_OK(status);
 
     free_file_header(&encoder->file_header);
-    status = create_file_header(&encoder->file_header, new_input_path);
+    char *base_path = get_base_path(encoder->file_list);
+    status = create_file_header(&encoder->file_header, new_input_path, base_path);
+    ASSERT_STATUS_OK(status);
 
     return STATUS_OK;
 }
@@ -320,14 +376,42 @@ Status compress_file_simple(Huffman_Encoder *encoder)
 {
     Status status = STATUS_OK;
 
-    status = create_frequency_list(encoder);
+    char *absolute_path;
+    status = get_next_absolute_path(&absolute_path, encoder->file_list);
+    ASSERT_STATUS_OK(status);
+    if (absolute_path == NULL)
+        return STATUS_OK;
+
+    status = setup_compression_context(encoder, absolute_path);
+    ASSERT_STATUS_OK(status);
+    free(absolute_path);
+
+    if (get_is_directory(encoder->file_header))
+    {
+        status = write_file_header(encoder->file_header, encoder->writer);
+        ASSERT_STATUS_OK(status);
+        write_padding(get_writer_encoder(encoder));
+        compress_file_simple(encoder);
+        return STATUS_OK;
+    }
+
+    status = generate_codes(encoder, NULL, "");
+    ASSERT_STATUS_OK(status);
+    
+    status = write_file_header(encoder->file_header, encoder->writer);
     ASSERT_STATUS_OK(status);
 
-    status = build_huffman_tree(encoder);
+    status = write_huffman_tree(encoder, encoder->huffman_tree->first_node);
     ASSERT_STATUS_OK(status);
 
-    status = generate_codes(encoder, get_first_node(encoder), "");
+    status = write_encoded_data(encoder);
     ASSERT_STATUS_OK(status);
+
+    write_padding(get_writer_encoder(encoder));
+
+    status = compress_file_simple(encoder);
+    ASSERT_STATUS_OK(status);
+
 
     return STATUS_OK;
 }
@@ -366,4 +450,9 @@ unsigned char get_symbol_node(Huffman_Node *node)
 char **get_huffman_codes(Huffman_Encoder *encoder)
 {
     return encoder->huffman_codes;
+}
+
+Bytes_Writer *get_writer_encoder(Huffman_Encoder *encoder)
+{
+    return encoder->writer;
 }

@@ -23,7 +23,8 @@ Status read_bit_from_file(uint8_t *bit, Bytes_Reader *reader);
 Status read_multiple_bits_from_file(uint64_t *bits, uint8_t size, Bytes_Reader *reader);
 Status read_byte_from_file(unsigned char *byte, Bytes_Reader *reader);
 Status read_multiple_bytes_from_file(unsigned char *bytes, int size, Bytes_Reader *reader);
+Status skip_padding(Bytes_Reader *reader);
 
-FILE* get_reader_file(Bytes_Reader *reader);
+FILE* get_file_reader(Bytes_Reader *reader);
 
 #endif

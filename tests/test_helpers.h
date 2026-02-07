@@ -14,6 +14,9 @@
         }                                                                    \
     } while (0)
 
-Status create_temp_file(const char *path, const unsigned char *data, size_t size);
+Status create_temp_file(const char *name, const unsigned char *data, size_t size, char *full_path);
+void make_directory(const char *name, char *full_path);
+Status populate_directory(unsigned char **datas, char **names, int file_count, char (*full_path)[4096]);
+void remove_directory(const char *root);
 
 #endif

@@ -9,8 +9,10 @@
 #include <unity.h>
 #include <stdint.h>
 
-const char *input_test_file_txt = "temporary_input_test_file.txt";
-const char *output_test_file_txt = "temporary_output_test_file.txt";
+const char *input_test_file_txt = "temporary_input_file";
+const char *output_test_file_txt = "temporary_output_test_file";
+
+char full_path[4096] = {0};
 
 const unsigned char test_input_1[] = "AAAAACCCCEEEGGH";
 const unsigned char test_input_empty[] = "";
@@ -57,11 +59,11 @@ void test_create_frequency_list_1()
     log_message(LOG_INFO, "Running create_frequency_list_1 test");
 
     Status status;
-    status = create_temp_file(input_test_file_txt, test_input_1, sizeof(test_input_1) - sizeof(unsigned char));
+    status = create_temp_file(input_test_file_txt, test_input_1, sizeof(test_input_1) - sizeof(unsigned char), full_path);
     ASSERT_STATUS_OK(status);
 
     Huffman_Encoder *encoder;
-    status = create_huffman_encoder(&encoder, input_test_file_txt, output_test_file_txt);
+    status = create_huffman_encoder(&encoder, full_path, output_test_file_txt);
     ASSERT_STATUS_OK(status);
 
     status = create_frequency_list(encoder);
@@ -77,11 +79,11 @@ void test_create_frequency_list_empty()
     log_message(LOG_INFO, "Running create_frequency_list_empty test");
 
     Status status;
-    status = create_temp_file(input_test_file_txt, test_input_empty, sizeof(test_input_empty) - sizeof(unsigned char));
+    status = create_temp_file(input_test_file_txt, test_input_empty, sizeof(test_input_empty) - sizeof(unsigned char), full_path);
     ASSERT_STATUS_OK(status);
 
     Huffman_Encoder *encoder;
-    status = create_huffman_encoder(&encoder, input_test_file_txt, output_test_file_txt);
+    status = create_huffman_encoder(&encoder, full_path, output_test_file_txt);
     ASSERT_STATUS_OK(status);
 
     status = create_frequency_list(encoder);
@@ -122,11 +124,11 @@ void test_build_huffman_tree_1()
     log_message(LOG_INFO, "Running build_huffman_tree_1 test");
 
     Status status;
-    status = create_temp_file(input_test_file_txt, test_input_1, sizeof(test_input_1) - sizeof(unsigned char));
+    status = create_temp_file(input_test_file_txt, test_input_1, sizeof(test_input_1) - sizeof(unsigned char), full_path);
     ASSERT_STATUS_OK(status);
 
     Huffman_Encoder *encoder;
-    status = create_huffman_encoder(&encoder, input_test_file_txt, output_test_file_txt);
+    status = create_huffman_encoder(&encoder, full_path, output_test_file_txt);
     ASSERT_STATUS_OK(status);
 
     status = build_huffman_tree(encoder);
@@ -143,11 +145,11 @@ void test_build_huffman_tree_empty()
     log_message(LOG_INFO, "Running build_huffman_tree_empty test");
 
     Status status;
-    status = create_temp_file(input_test_file_txt, test_input_empty, sizeof(test_input_empty) - sizeof(unsigned char));
+    status = create_temp_file(input_test_file_txt, test_input_empty, sizeof(test_input_empty) - sizeof(unsigned char), full_path);
     ASSERT_STATUS_OK(status);
 
     Huffman_Encoder *encoder;
-    status = create_huffman_encoder(&encoder, input_test_file_txt, output_test_file_txt);
+    status = create_huffman_encoder(&encoder, full_path, output_test_file_txt);
     ASSERT_STATUS_OK(status);
 
     status = build_huffman_tree(encoder);
@@ -181,19 +183,13 @@ void test_generate_codes_1()
     log_message(LOG_INFO, "Running generate_codes_1 test");
 
     Status status;
-    status = create_temp_file(input_test_file_txt, test_input_1, sizeof(test_input_1) - sizeof(unsigned char));
+    status = create_temp_file(input_test_file_txt, test_input_1, sizeof(test_input_1) - sizeof(unsigned char), full_path);
     ASSERT_STATUS_OK(status);
 
     Huffman_Encoder *encoder;
-    status = create_huffman_encoder(&encoder, input_test_file_txt, output_test_file_txt);
+    status = create_huffman_encoder(&encoder, full_path, output_test_file_txt);
     ASSERT_STATUS_OK(status);
     
-    status = generate_codes(encoder, NULL, "");
-    ASSERT_STATUS_OK(status);
-    validate_huffman_codes(get_huffman_codes(encoder));
-    
-    reset_encoder_for_next_file(encoder, input_test_file_txt);
-
     status = generate_codes(encoder, NULL, "");
     ASSERT_STATUS_OK(status);
     validate_huffman_codes(get_huffman_codes(encoder));
@@ -207,18 +203,12 @@ void test_generate_codes_empty()
     log_message(LOG_INFO, "Running generate_codes_empty test");
 
     Status status;
-    status = create_temp_file(input_test_file_txt, test_input_empty, sizeof(test_input_empty) - sizeof(unsigned char));
+    status = create_temp_file(input_test_file_txt, test_input_empty, sizeof(test_input_empty) - sizeof(unsigned char), full_path);
     ASSERT_STATUS_OK(status);
 
     Huffman_Encoder *encoder;
-    status = create_huffman_encoder(&encoder, input_test_file_txt, output_test_file_txt);
+    status = create_huffman_encoder(&encoder, full_path, output_test_file_txt);
     ASSERT_STATUS_OK(status);
-
-    status = generate_codes(encoder, NULL, "");
-    ASSERT_STATUS_OK(status);
-    validate_huffman_codes(get_huffman_codes(encoder));
-
-    reset_encoder_for_next_file(encoder, input_test_file_txt);
 
     status = generate_codes(encoder, NULL, "");
     ASSERT_STATUS_OK(status);
