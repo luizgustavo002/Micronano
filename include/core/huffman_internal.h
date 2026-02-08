@@ -6,14 +6,6 @@
 #include <stdint.h>
 
 #define ASCII_SIZE 256
-#define ASSERT_STATUS_OK(status) \
-    do                           \
-    {                            \
-        if (status)              \
-        {                        \
-            return status;       \
-        }                        \
-    } while (0)
 
 struct Huffman_Encoder
 {

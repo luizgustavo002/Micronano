@@ -2,3 +2,4 @@
 /.vscode
 /outros
 /output
+.clang-format

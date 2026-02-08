@@ -53,10 +53,10 @@ void test_file_header_1()
 
     Status status;
     status = create_temp_file(input_test_file_path, test_input_1, sizeof(test_input_1) - sizeof(unsigned char), full_path);
-    ASSERT_STATUS_OK(status);
+    ASSERT_STATUS_OK_TEST(status);
 
     status = set_base_path(&input_base_path, full_path);
-    ASSERT_STATUS_OK(status);
+    ASSERT_STATUS_OK_TEST(status);
     File_Header *file_header;
     status = create_file_header(&file_header, full_path, input_base_path);
     free(input_base_path);
@@ -73,10 +73,10 @@ void test_file_header_empty()
 
     Status status;
     status = create_temp_file(input_test_file_path, test_input_empty, sizeof(test_input_empty) - sizeof(unsigned char), full_path);
-    ASSERT_STATUS_OK(status);
+    ASSERT_STATUS_OK_TEST(status);
 
     status = set_base_path(&input_base_path, full_path);
-    ASSERT_STATUS_OK(status);
+    ASSERT_STATUS_OK_TEST(status);
     File_Header *file_header;
     status = create_file_header(&file_header, full_path, input_base_path);
     free(input_base_path);

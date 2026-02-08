@@ -22,6 +22,8 @@ void free_file_list(File_List **list);
 Status write_file_header(File_Header *file_header, Bytes_Writer *writer);
 Status read_file_header(Huffman_Decoder *decoder);
 
+Status log_compressing_file(File_List *list);
+
 uint16_t get_path_size(File_Header *file_header);
 uint64_t get_file_size(File_Header *file_header);
 char *get_base_path(File_List *list);

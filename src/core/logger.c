@@ -2,8 +2,8 @@
 #include "types_errors.h"
 
 #include <stdarg.h>
-#include <time.h>
 #include <stdio.h>
+#include <time.h>
 
 #ifdef _WIN32
 #include <dirent.h>
@@ -18,27 +18,23 @@ static FILE *log_file = NULL;
 static int debug_mode = 0;
 const char *level_names[] = {"DEBUG", "INFO", "WARN", "ERROR"};
 
-void logger_init(const char *file_name, int mode)
-{
+void logger_init(const char *file_name, int mode) {
+    if (log_file != NULL) return;
     CREATE_DIR("logs");
 
     char file_path[256];
     snprintf(file_path, sizeof(file_path), "logs/%s", file_name);
 
     log_file = fopen(file_path, "a");
-    if (!log_file)
-        perror("Error opening log file.");
+    if (!log_file) perror("Error opening log file.");
 
     debug_mode = mode;
 }
 
-void log_message(LogLevel level, const char *format, ...)
-{
-    if (!log_file)
-        return;
+void log_message(LogLevel level, const char *format, ...) {
+    if (log_file == NULL) return;
 
-    if (!debug_mode && level == LOG_DEBUG)
-        return;
+    if (debug_mode == 0 && level == LOG_DEBUG) return;
 
     time_t now = time(NULL);
     struct tm *timeinfo = localtime(&now);
@@ -55,8 +51,7 @@ void log_message(LogLevel level, const char *format, ...)
     fflush(log_file);
 }
 
-void logger_close()
-{
-    if (log_file)
-        fclose(log_file);
+void logger_close() {
+    if (log_file) fclose(log_file);
+    log_file = NULL;
 }

@@ -87,3 +87,10 @@ void remove_directory(const char *root)
     snprintf(aux_path, sizeof(aux_path), "%s %s", RMDIR_CMD, root);
     system(aux_path);
 }
+
+void get_current_working_directory(char *path){
+    char cwd[4096];
+    if (GetCurrentDir(cwd, sizeof(cwd)) == NULL)
+        return;
+    strcpy(path, cwd);
+}

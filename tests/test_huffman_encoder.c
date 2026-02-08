@@ -60,14 +60,14 @@ void test_create_frequency_list_1()
 
     Status status;
     status = create_temp_file(input_test_file_txt, test_input_1, sizeof(test_input_1) - sizeof(unsigned char), full_path);
-    ASSERT_STATUS_OK(status);
+    ASSERT_STATUS_OK_TEST(status);
 
     Huffman_Encoder *encoder;
     status = create_huffman_encoder(&encoder, full_path, output_test_file_txt);
-    ASSERT_STATUS_OK(status);
+    ASSERT_STATUS_OK_TEST(status);
 
     status = create_frequency_list(encoder);
-    ASSERT_STATUS_OK(status);
+    ASSERT_STATUS_OK_TEST(status);
     assert_list_order(encoder);
 
     free_huffman_encoder(&encoder);
@@ -80,14 +80,14 @@ void test_create_frequency_list_empty()
 
     Status status;
     status = create_temp_file(input_test_file_txt, test_input_empty, sizeof(test_input_empty) - sizeof(unsigned char), full_path);
-    ASSERT_STATUS_OK(status);
+    ASSERT_STATUS_OK_TEST(status);
 
     Huffman_Encoder *encoder;
     status = create_huffman_encoder(&encoder, full_path, output_test_file_txt);
-    ASSERT_STATUS_OK(status);
+    ASSERT_STATUS_OK_TEST(status);
 
     status = create_frequency_list(encoder);
-    ASSERT_STATUS_OK(status);
+    ASSERT_STATUS_OK_TEST(status);
     assert_list_order(encoder);
     
     free_huffman_encoder(&encoder);
@@ -125,14 +125,14 @@ void test_build_huffman_tree_1()
 
     Status status;
     status = create_temp_file(input_test_file_txt, test_input_1, sizeof(test_input_1) - sizeof(unsigned char), full_path);
-    ASSERT_STATUS_OK(status);
+    ASSERT_STATUS_OK_TEST(status);
 
     Huffman_Encoder *encoder;
     status = create_huffman_encoder(&encoder, full_path, output_test_file_txt);
-    ASSERT_STATUS_OK(status);
+    ASSERT_STATUS_OK_TEST(status);
 
     status = build_huffman_tree(encoder);
-    ASSERT_STATUS_OK(status);
+    ASSERT_STATUS_OK_TEST(status);
 
     validate_huffman_tree(get_first_node(encoder));
 
@@ -146,14 +146,14 @@ void test_build_huffman_tree_empty()
 
     Status status;
     status = create_temp_file(input_test_file_txt, test_input_empty, sizeof(test_input_empty) - sizeof(unsigned char), full_path);
-    ASSERT_STATUS_OK(status);
+    ASSERT_STATUS_OK_TEST(status);
 
     Huffman_Encoder *encoder;
     status = create_huffman_encoder(&encoder, full_path, output_test_file_txt);
-    ASSERT_STATUS_OK(status);
+    ASSERT_STATUS_OK_TEST(status);
 
     status = build_huffman_tree(encoder);
-    ASSERT_STATUS_OK(status);
+    ASSERT_STATUS_OK_TEST(status);
 
     validate_huffman_tree(get_first_node(encoder));
 
@@ -184,14 +184,14 @@ void test_generate_codes_1()
 
     Status status;
     status = create_temp_file(input_test_file_txt, test_input_1, sizeof(test_input_1) - sizeof(unsigned char), full_path);
-    ASSERT_STATUS_OK(status);
+    ASSERT_STATUS_OK_TEST(status);
 
     Huffman_Encoder *encoder;
     status = create_huffman_encoder(&encoder, full_path, output_test_file_txt);
-    ASSERT_STATUS_OK(status);
+    ASSERT_STATUS_OK_TEST(status);
     
     status = generate_codes(encoder, NULL, "");
-    ASSERT_STATUS_OK(status);
+    ASSERT_STATUS_OK_TEST(status);
     validate_huffman_codes(get_huffman_codes(encoder));
 
     free_huffman_encoder(&encoder);
@@ -204,14 +204,14 @@ void test_generate_codes_empty()
 
     Status status;
     status = create_temp_file(input_test_file_txt, test_input_empty, sizeof(test_input_empty) - sizeof(unsigned char), full_path);
-    ASSERT_STATUS_OK(status);
+    ASSERT_STATUS_OK_TEST(status);
 
     Huffman_Encoder *encoder;
     status = create_huffman_encoder(&encoder, full_path, output_test_file_txt);
-    ASSERT_STATUS_OK(status);
+    ASSERT_STATUS_OK_TEST(status);
 
     status = generate_codes(encoder, NULL, "");
-    ASSERT_STATUS_OK(status);
+    ASSERT_STATUS_OK_TEST(status);
     validate_huffman_codes(get_huffman_codes(encoder));
     
     free_huffman_encoder(&encoder);

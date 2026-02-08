@@ -29,8 +29,8 @@ void free_huffman_tree(Huffman_Tree **tree);
 //--------------- Huffman codes ---------------
 Status generate_codes(Huffman_Encoder *encoder, Huffman_Node *node, char *current_path);
 
-Status compress_file_simple(Huffman_Encoder *encoder);
-Status decompressed_file_simple(Huffman_Decoder *decoder);
+Status compress_file_non_solid(Huffman_Encoder *encoder);
+Status decompressed_file_non_solid(Huffman_Decoder *decoder);
 
 //--------------- Get data ---------------
 Huffman_Node* get_first_node(Huffman_Encoder *encoder);

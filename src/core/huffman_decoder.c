@@ -22,36 +22,58 @@
 #define PATH_SEP '/'
 #endif
 
+// Creates Huffman_Decoder instance and assigns it to provided pointer.
+// - The caller is responsible for freeing it with free_huffman_decoder.
+// - Returns STATUS_OK on success or a specific error code on failure.
 Status create_huffman_decoder(Huffman_Decoder **decoder, const char *input_path, const char *output_path)
 {
-    log_message(LOG_DEBUG, "Creating Huffman_Decoder.");
+    // Validates that the argument is not NULL.
+    if (decoder == NULL || input_path == NULL || output_path == NULL) {
+        char msg[128] = {0};
+        if (decoder == NULL) strcat(msg, "decoder ");
+        if (input_path == NULL) strcat(msg, "input_path ");
+        if (output_path == NULL) strcat(msg, "output_path ");
+        log_message(LOG_ERROR, "create_huffman_decoder invalid args: %s", msg);
+        return ERROR_INVALID_ARGUMENT;
+    }
+
     *decoder = (Huffman_Decoder *)calloc(1, sizeof(Huffman_Decoder));
-    if (!(*decoder))
+    if (*decoder == NULL)
     {
         log_message(LOG_ERROR, "Failed to allocate memory for Huffman_Decoder.");
         return ERROR_MEMORY_ALLOCATION;
     }
 
-    Status status;
+    Status status = STATUS_OK;
 
-    FILE *input_file;
-    status = open_file(&input_file, input_path, "rb");
-    ASSERT_STATUS_OK(status);
-    status = create_bytes_reader(&(*decoder)->reader, input_file);
-    ASSERT_STATUS_OK(status);
+    status = create_bytes_reader(&(*decoder)->reader, input_path);
+    ASSERT_STATUS_OK_AND_FREES(status, *decoder);
 
-    (*decoder)->output_path = (char *)output_path;
+    size_t len = strlen(output_path) + 1;
+    (*decoder)->output_path = calloc(len, sizeof(char));
+    if ((*decoder)->output_path == NULL)
+    {
+        log_message(LOG_ERROR, "Failed to allocate memory for (*decoder)->output_path.");
+        status = ERROR_MEMORY_ALLOCATION;
+        free_bytes_reader(&(*decoder)->reader);
+        ASSERT_STATUS_OK_AND_FREES(status, *decoder);
+    }
+    strcpy((*decoder)->output_path, output_path);
 
     return STATUS_OK;
 }
 
 Status read_huffman_tree(Huffman_Node **node, Huffman_Decoder *decoder)
 {
+    // Validates that the argument is not NULL.
+    if (decoder == NULL) {
+        log_message(LOG_ERROR, "read_huffman_tree invalid args: decoder");
+        return ERROR_INVALID_ARGUMENT;
+    }
     Status status = STATUS_OK;
 
     if (node == NULL)
     {
-        log_message(LOG_DEBUG, "Readeing Huffman_Tree.");
         if (decoder->huffman_tree == NULL)
         {
             decoder->huffman_tree = (Huffman_Tree *)calloc(1, sizeof(Huffman_Tree));
@@ -93,8 +115,13 @@ Status read_huffman_tree(Huffman_Node **node, Huffman_Decoder *decoder)
     return STATUS_OK;
 }
 
-Status write_decompressed_data(Huffman_Decoder *decoder)
+static Status write_decompressed_data(Huffman_Decoder *decoder)
 {
+    // Validates that the argument is not NULL.
+    if (decoder == NULL) {
+        log_message(LOG_ERROR, "write_decompressed_data invalid args: decoder");
+        return ERROR_INVALID_ARGUMENT;
+    }
     Status status = STATUS_OK;
     uint64_t file_size = get_file_size(decoder->file_header);
 
@@ -130,28 +157,38 @@ Status write_decompressed_data(Huffman_Decoder *decoder)
 
 static Status setup_decompressed_context(Huffman_Decoder *decoder)
 {
+    // Validates that the argument is not NULL.
+    if (decoder == NULL) {
+        log_message(LOG_ERROR, "setup_decompressed_context invalid args: decoder");
+        return ERROR_INVALID_ARGUMENT;
+    }
     Status status = STATUS_OK;
 
     free_bytes_writer(&decoder->writer);
     free_huffman_tree(&decoder->huffman_tree);
     free_file_header(&decoder->file_header);
     status = read_file_header(decoder);
-    if (status == ERROR_END_OF_FILE)
-    {
-        return status;
-    }
     ASSERT_STATUS_OK(status);
+
+    char relative_path[4096];
+    get_relative_path(relative_path, decoder->file_header);
+    log_message(LOG_DEBUG, "Decompressing file or directory: %s", relative_path);
 
     return STATUS_OK;
 }
 
-Status decompressed_file_simple(Huffman_Decoder *decoder)
+Status decompressed_file_non_solid(Huffman_Decoder *decoder)
 {
+    // Validates that the argument is not NULL.
+    if (decoder == NULL) {
+        log_message(LOG_ERROR, "decompressed_file_simple invalid args: decoder");
+        return ERROR_INVALID_ARGUMENT;
+    }
     Status status = STATUS_OK;
 
     status = setup_decompressed_context(decoder);
     if (status == ERROR_END_OF_FILE)
-        return STATUS_OK;
+        return STATUS_END_OF_PROCESS;
     ASSERT_STATUS_OK(status);
 
     if (get_is_directory(decoder->file_header))
@@ -164,7 +201,6 @@ Status decompressed_file_simple(Huffman_Decoder *decoder)
         {
             log_message(LOG_ERROR, "mkdir failed: %s (errno=%d)", strerror(errno), errno);
         }
-        decompressed_file_simple(decoder);
         return STATUS_OK;
     }
 
@@ -177,14 +213,17 @@ Status decompressed_file_simple(Huffman_Decoder *decoder)
     status = skip_padding(decoder->reader);
     ASSERT_STATUS_OK(status);
 
-    decompressed_file_simple(decoder);
-
     return STATUS_OK;
 }
 
 void free_huffman_decoder(Huffman_Decoder **decoder)
 {
-    log_message(LOG_DEBUG, "Freeing Huffman_Encoder.");
+    // Validates that the argument is not NULL.
+    if (decoder == NULL) {
+        log_message(LOG_ERROR, "free_huffman_decoder invalid args: decoder");
+        return;
+    }
+    free((*decoder)->output_path);
     free_bytes_writer(&(*decoder)->writer);
     free_bytes_reader(&(*decoder)->reader);
     free_file_header(&(*decoder)->file_header);

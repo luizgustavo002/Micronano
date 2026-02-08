@@ -12,7 +12,6 @@
 
 Status create_huffman_encoder(Huffman_Encoder **encoder, const char *input_path, const char *output_path)
 {
-    log_message(LOG_DEBUG, "Creating Huffman_Encoder.");
     *encoder = (Huffman_Encoder *)calloc(1, sizeof(Huffman_Encoder));
     if (!(*encoder))
     {
@@ -21,23 +20,13 @@ Status create_huffman_encoder(Huffman_Encoder **encoder, const char *input_path,
     }
 
     Status status;
-
-    
-    FILE *input_file;
-    status = open_file(&input_file, input_path, "rb");
-    ASSERT_STATUS_OK(status);
-    status = create_bytes_reader(&(*encoder)->reader, input_file);
-    ASSERT_STATUS_OK(status);
     
     status = init_file_list(&(*encoder)->file_list, input_path);
     ASSERT_STATUS_OK(status);
     
-    FILE *output_file;
     char full_output_path[8192];
     set_compress_output_file_path(full_output_path, input_path, output_path, (*encoder)->file_list);
-    status = open_file(&output_file, full_output_path, "wb");
-    ASSERT_STATUS_OK(status);
-    status = create_bytes_writer(&(*encoder)->writer, output_file);
+    status = create_bytes_writer(&(*encoder)->writer, full_output_path);
     ASSERT_STATUS_OK(status);
 
     status = scan_directory((*encoder)->file_list, input_path);
@@ -49,7 +38,6 @@ Status create_huffman_encoder(Huffman_Encoder **encoder, const char *input_path,
 //--------------- Char frequency ---------------
 static Status count_char_frequency(Huffman_Encoder *encoder)
 {
-    log_message(LOG_DEBUG, "Counting character frequencies.");
     Bytes_Reader *reader = encoder->reader;
 
     Status status = STATUS_OK;
@@ -128,7 +116,6 @@ static void insert_sorted_node(Huffman_Node *new_node, Huffman_Encoder *encoder)
 
 Status create_frequency_list(Huffman_Encoder *encoder)
 {
-    log_message(LOG_DEBUG, "Creating Frequency List.");
     if (encoder->huffman_tree == NULL)
         encoder->huffman_tree = (Huffman_Tree *)calloc(1, sizeof(Huffman_Tree));
 
@@ -163,7 +150,6 @@ Status create_frequency_list(Huffman_Encoder *encoder)
 //--------------- Huffman tree ---------------
 Status build_huffman_tree(Huffman_Encoder *encoder)
 {
-    log_message(LOG_DEBUG, "Building Huffman tree.");
     Status status;
 
     if (encoder->huffman_tree == NULL || encoder->huffman_tree->first_node == NULL)
@@ -219,7 +205,6 @@ Status generate_codes(Huffman_Encoder *encoder, Huffman_Node *node, char *curren
         return STATUS_OK;
     if (node == NULL)
     {
-        log_message(LOG_DEBUG, "Generating Huffman codes.");
         generate_codes(encoder, first_node, "");
     }
 
@@ -272,7 +257,6 @@ void free_huffman_codes(char **huffman_codes)
 
 void free_huffman_encoder(Huffman_Encoder **encoder)
 {
-    log_message(LOG_DEBUG, "Freeing Huffman_Encoder.");
     free_bytes_writer(&(*encoder)->writer);
     free_bytes_reader(&(*encoder)->reader);
     free_file_header(&(*encoder)->file_header);
@@ -358,10 +342,7 @@ static Status setup_compression_context(Huffman_Encoder *encoder, const char *ne
     free_huffman_tree(&encoder->huffman_tree);
     free_huffman_codes(encoder->huffman_codes);
 
-    FILE *input_file;
-    status = open_file(&input_file, new_input_path, "rb");
-    ASSERT_STATUS_OK(status);
-    status = create_bytes_reader(&encoder->reader, input_file);
+    status = create_bytes_reader(&encoder->reader, new_input_path);
     ASSERT_STATUS_OK(status);
 
     free_file_header(&encoder->file_header);
@@ -372,16 +353,17 @@ static Status setup_compression_context(Huffman_Encoder *encoder, const char *ne
     return STATUS_OK;
 }
 
-Status compress_file_simple(Huffman_Encoder *encoder)
+Status compress_file_non_solid(Huffman_Encoder *encoder)
 {
     Status status = STATUS_OK;
-
+    
     char *absolute_path;
     status = get_next_absolute_path(&absolute_path, encoder->file_list);
     ASSERT_STATUS_OK(status);
     if (absolute_path == NULL)
-        return STATUS_OK;
-
+    return STATUS_END_OF_PROCESS;
+    
+    log_compressing_file(encoder->file_list);
     status = setup_compression_context(encoder, absolute_path);
     ASSERT_STATUS_OK(status);
     free(absolute_path);
@@ -391,7 +373,6 @@ Status compress_file_simple(Huffman_Encoder *encoder)
         status = write_file_header(encoder->file_header, encoder->writer);
         ASSERT_STATUS_OK(status);
         write_padding(get_writer_encoder(encoder));
-        compress_file_simple(encoder);
         return STATUS_OK;
     }
 
@@ -409,50 +390,86 @@ Status compress_file_simple(Huffman_Encoder *encoder)
 
     write_padding(get_writer_encoder(encoder));
 
-    status = compress_file_simple(encoder);
-    ASSERT_STATUS_OK(status);
-
-
     return STATUS_OK;
 }
 
 //--------------- Get data ---------------
 Huffman_Node *get_first_node(Huffman_Encoder *encoder)
 {
+    // Validates that the argument is not NULL.
+    if (encoder == NULL) {
+        log_message(LOG_ERROR, "get_first_node invalid args: encoder");
+        return NULL;
+    }
     return encoder->huffman_tree->first_node;
 }
 
 Huffman_Node *get_next_node(Huffman_Node *node)
 {
+    // Validates that the argument is not NULL.
+    if (node == NULL) {
+        log_message(LOG_ERROR, "get_next_node invalid args: node");
+        return NULL;
+    }
     return node->next;
 }
 
 uint64_t get_node_frequency(Huffman_Node *node)
 {
+    // Validates that the argument is not NULL.
+    if (node == NULL) {
+        log_message(LOG_ERROR, "get_node_frequency invalid args: node");
+        return ERROR_INVALID_ARGUMENT;
+    }
     return node->frequency;
 }
 
 Huffman_Node *get_left_node(Huffman_Node *node)
 {
+    // Validates that the argument is not NULL.
+    if (node == NULL) {
+        log_message(LOG_ERROR, "get_left_node invalid args: node");
+        return NULL;
+    }
     return node->left;
 }
 
 Huffman_Node *get_right_node(Huffman_Node *node)
 {
+    // Validates that the argument is not NULL.
+    if (node == NULL) {
+        log_message(LOG_ERROR, "get_right_node invalid args: node");
+        return NULL;
+    }
     return node->right;
 }
 
 unsigned char get_symbol_node(Huffman_Node *node)
 {
+    // Validates that the argument is not NULL.
+    if (node == NULL) {
+        log_message(LOG_ERROR, "get_symbol_node invalid args: node");
+        return ERROR_INVALID_ARGUMENT;
+    }
     return node->symbol;
 }
 
 char **get_huffman_codes(Huffman_Encoder *encoder)
 {
+    // Validates that the argument is not NULL.
+    if (encoder == NULL) {
+        log_message(LOG_ERROR, "get_huffman_codes invalid args: encoder");
+        return NULL;
+    }
     return encoder->huffman_codes;
 }
 
 Bytes_Writer *get_writer_encoder(Huffman_Encoder *encoder)
 {
+    // Validates that the argument is not NULL.
+    if (encoder == NULL) {
+        log_message(LOG_ERROR, "get_writer_encoder invalid args: encoder");
+        return NULL;
+    }
     return encoder->writer;
 }
