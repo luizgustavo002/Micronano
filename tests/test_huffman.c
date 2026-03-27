@@ -80,7 +80,7 @@ void test_compress_directory_simple_1() {
     status = populate_directory((unsigned char **)datas_file, (char **)names_file, file_count, full_path + 1);
     ASSERT_STATUS_OK_TEST(status);
 
-    status = compress(input_full_path, output_compresed_file_directory, PROCESSING_SETTING_NON_SOLID_LOG_DEBUG);  
+    status = compress(input_full_path, output_compresed_file_directory, PROCESSING_SETTING_NON_SOLID_DEBUG_LOG);  
     ASSERT_STATUS_OK_TEST(status);
 
     //------------------------------------
@@ -91,7 +91,7 @@ void test_compress_directory_simple_1() {
     ASSERT_STATUS_OK_TEST(status);
 
     log_message(LOG_INFO, "Decompressing file or directory: %s", input_decompresed_file);
-    status = decompress(input_decompresed_file, output_full_path, PROCESSING_SETTING_NON_SOLID_LOG_DEBUG);
+    status = decompress(input_decompresed_file, output_full_path, PROCESSING_SETTING_NON_SOLID_DEBUG_LOG);
     ASSERT_STATUS_OK_TEST(status);
 
     free_huffman_decoder(&decoder);

@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 project(Micronano C)
 
-option(ENABLE_ASAN "Enable AddressSanitizer" ON)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/output)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -36,8 +35,10 @@ add_library(core_lib STATIC
     src/core/huffman.c
     src/core/huffman_decoder.c
     src/core/huffman_api.c
+    src/core/utils.c
+    src/cli/cli_args.c
 )
-target_include_directories(core_lib PUBLIC include/core)
+target_include_directories(core_lib PUBLIC include/core include/cli)
 
 add_executable(Micronano src/core/main.c)
 

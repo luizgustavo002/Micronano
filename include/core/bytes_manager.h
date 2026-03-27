@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <stdint.h>
 
+#define BUFFER_SIZE_WRITER 4096
+
 typedef struct Bytes_Writer Bytes_Writer;
 typedef struct Bytes_Reader Bytes_Reader;
 
@@ -26,5 +28,6 @@ Status read_multiple_bytes_from_file(unsigned char *bytes, int size, Bytes_Reade
 Status skip_padding(Bytes_Reader *reader);
 
 FILE* get_file_reader(Bytes_Reader *reader);
+FILE *get_file_writer(Bytes_Writer *writer);
 
 #endif

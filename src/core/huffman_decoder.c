@@ -46,6 +46,8 @@ Status create_huffman_decoder(Huffman_Decoder **decoder, const char *input_path,
 
     Status status = STATUS_OK;
 
+    remove_trailing_separator((char *) input_path);
+    remove_trailing_separator((char *) output_path);
     status = create_bytes_reader(&(*decoder)->reader, input_path);
     ASSERT_STATUS_OK_AND_FREES(status, *decoder);
 

@@ -3,6 +3,7 @@
 #include "huffman_internal.h"
 #include "logger.h"
 #include "types_errors.h"
+#include "utils.h"
 
 #include <errno.h>
 #include <stdint.h>
@@ -111,7 +112,7 @@ Status open_file(FILE **file, const char *path, const char *mode) {
 
 // Calculates the file size and assigns the value to the provided pointer.
 // - Returns STATUS_OK on success or specific error code on failure.
-static Status calculate_file_size(uint64_t *size, const char *path_file) {
+Status calculate_file_size(uint64_t *size, const char *path_file) {
     // Validates that the argument is not NULL.
     if (size == NULL || path_file == NULL) {
         char msg[128] = {0};
@@ -180,7 +181,9 @@ Status create_file_header(File_Header **file_header, const char *absolute_path, 
 
     if (is_file) {
         status = calculate_file_size(&(*file_header)->file_size, absolute_path);
+        add_size_bytes((*file_header)->file_size);
         ASSERT_STATUS_OK(status);
+
     } else
         (*file_header)->file_size = 0;
 
@@ -376,6 +379,14 @@ Status scan_directory(File_List *list, const char *path) {
     return STATUS_OK;
 }
 
+void remove_trailing_separator(char *path) {
+    if (path == NULL) return;
+
+    size_t len = strlen(path);
+    if (len == 0) return;
+
+    if ((path[len - 1] == '/' && len > 1) || (path[len - 1] == '\\' && len > 3)) path[len - 1] = '\0';
+}
 //--------------- Free memory ---------------
 void free_file_header(File_Header **file_header) {
     if (file_header == NULL || *file_header == NULL) return;
@@ -453,6 +464,7 @@ Status read_file_header(Huffman_Decoder *decoder) {
     if (file_header->is_directory == 0) {
         status = read_multiple_bits_from_file(&file_header->file_size, 40, decoder->reader);
         ASSERT_STATUS_OK(status);
+        add_size_bytes(file_header->file_size);
         status = create_bytes_writer(&decoder->writer, absolute_path);
         ASSERT_STATUS_OK(status);
     }

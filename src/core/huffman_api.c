@@ -41,7 +41,7 @@ Status compress(const char *input_path, const char *output_path, Processing_Sett
         status = compress_non_solid(input_path, output_path, 0);
         ASSERT_STATUS_OK(status);
     }
-    if (setting == PROCESSING_SETTING_NON_SOLID_LOG_DEBUG) {
+    if (setting == PROCESSING_SETTING_NON_SOLID_DEBUG_LOG) {
         status = compress_non_solid(input_path, output_path, 1);
         ASSERT_STATUS_OK(status);
     }
@@ -83,7 +83,7 @@ Status decompress(const char *input_path, const char *output_path, Processing_Se
         status = decompress_non_solid(input_path, output_path, 0);
         ASSERT_STATUS_OK(status);
     }
-    if (setting == PROCESSING_SETTING_NON_SOLID_LOG_DEBUG) {
+    if (setting == PROCESSING_SETTING_NON_SOLID_DEBUG_LOG) {
         status = decompress_non_solid(input_path, output_path, 1);
         ASSERT_STATUS_OK(status);
     }

@@ -3,20 +3,21 @@
 #include "logger.h"
 #include "types_errors.h"
 
+#include <errno.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <errno.h>
 
 struct Bytes_Writer {
-    uint8_t buffer_byte;
+    uint8_t buffer_bytes[BUFFER_SIZE_WRITER];
     uint8_t bits_written;
+    uint16_t current_byte;
     FILE *file;
 };
 
 struct Bytes_Reader {
-    uint8_t buffer_byte;
+    uint8_t buffer_bytes;
     uint8_t remaining_bits;
     FILE *file;
 };
@@ -46,6 +47,7 @@ Status create_bytes_writer(Bytes_Writer **writer, const char *path) {
         return ERROR_MEMORY_ALLOCATION;
     }
     (*writer)->file = file;
+    (*writer)->current_byte = 0;
     return STATUS_OK;
 }
 
@@ -85,25 +87,35 @@ static Status write_to_file(Bytes_Writer *writer) {
         log_message(LOG_ERROR, "write_to_file invalid args: %s", msg);
         return ERROR_INVALID_ARGUMENT;
     }
-    size_t result = fwrite(&writer->buffer_byte, sizeof(uint8_t), 1, writer->file);
-    if (result != 1) {
+
+    if (writer->current_byte == 0) return STATUS_OK;
+    size_t result = fwrite(&writer->buffer_bytes, sizeof(uint8_t), writer->current_byte, writer->file);
+    if (result <= 0) {
         char *error_msg = strerror(errno);
         log_message(LOG_ERROR, "Could not write file: %s (errno: %d)", error_msg, errno);
         return ERROR_WRITING_FILE;
     }
-    writer->bits_written = 0;
-    writer->buffer_byte = 0;
+
+    for (int i = 0; i < BUFFER_SIZE_WRITER; i++) {
+        writer->buffer_bytes[i] = 0;
+    }
+    writer->current_byte = 0;
     return STATUS_OK;
 }
 
 Status write_bit_to_file(uint8_t bit, Bytes_Writer *writer) {
-    uint8_t byte = writer->buffer_byte;
-    writer->buffer_byte = (byte << 1) | bit;
+    Status status = STATUS_OK;
+    uint8_t byte = writer->buffer_bytes[writer->current_byte];
+    writer->buffer_bytes[writer->current_byte] = (byte << 1) | bit;
     writer->bits_written += 1;
 
     if (writer->bits_written == 8) {
-        Status status = write_to_file(writer);
-        if (status) return status;
+        writer->bits_written = 0;
+        writer->current_byte++;
+        if (writer->current_byte == BUFFER_SIZE_WRITER) {
+            status = write_to_file(writer);
+            ASSERT_STATUS_OK(status);
+        }
     }
     return STATUS_OK;
 }
@@ -132,10 +144,13 @@ Status write_multiple_bytes_to_file(uint8_t *bytes, int size, Bytes_Writer *writ
 }
 
 Status write_padding(Bytes_Writer *writer) {
+    Status status = STATUS_OK;
     while (writer->bits_written != 0) {
         Status status = write_bit_to_file(0, writer);
         if (status) return status;
     }
+    status = write_to_file(writer);
+    ASSERT_STATUS_OK(status);
     fflush(writer->file);
     return STATUS_OK;
 }
@@ -148,10 +163,10 @@ static Status read_file(Bytes_Reader *reader) {
         log_message(LOG_ERROR, "read_file invalid args: %s", msg);
         return ERROR_INVALID_ARGUMENT;
     }
-    size_t result = fread(&reader->buffer_byte, sizeof(uint8_t), 1, reader->file);
+    size_t result = fread(&reader->buffer_bytes, sizeof(uint8_t), 1, reader->file);
     if (result != 1) {
         if (feof(reader->file)) return ERROR_END_OF_FILE;
-        if (ferror(reader->file)){
+        if (ferror(reader->file)) {
             char *error_msg = strerror(errno);
             log_message(LOG_ERROR, "Could not read file: %s (errno: %d)", error_msg, errno);
             return ERROR_READING_FILE;
@@ -169,7 +184,7 @@ Status read_bit_from_file(uint8_t *bit, Bytes_Reader *reader) {
         if (status) return status;
     }
 
-    *bit = (reader->buffer_byte >> (reader->remaining_bits - 1)) & 1;
+    *bit = (reader->buffer_bytes >> (reader->remaining_bits - 1)) & 1;
     reader->remaining_bits -= 1;
 
     return STATUS_OK;
@@ -232,3 +247,5 @@ void free_bytes_reader(Bytes_Reader **reader) {
 
 //--------------- Get data ---------------
 FILE *get_file_reader(Bytes_Reader *reader) { return reader->file; }
+
+FILE *get_file_writer(Bytes_Writer *writer) { return writer->file; }

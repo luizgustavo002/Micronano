@@ -15,6 +15,8 @@ Status is_regular_file(int *result, const char *path);
 Status scan_directory(File_List *list, const char *path);
 Status set_base_path(char **base_path, const char* path);
 void set_compress_output_file_path(char full_path[], const char *input_path, const char *output_path, File_List *list);
+void remove_trailing_separator(char *path);
+Status calculate_file_size(uint64_t *size, const char *path_file);
 
 void free_file_header(File_Header **file_header);
 void free_file_list(File_List **list);
