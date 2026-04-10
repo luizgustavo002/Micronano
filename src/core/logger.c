@@ -6,7 +6,7 @@
 #include <time.h>
 
 #ifdef _WIN32
-#include <dirent.h>
+#include <direct.h>
 #define CREATE_DIR(path) _mkdir(path)
 #else
 #include <sys/stat.h>

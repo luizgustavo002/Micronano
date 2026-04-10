@@ -12,7 +12,7 @@
 #include <errno.h>
 
 #ifdef _WIN32
-#include <dirent.h>
+#include <direct.h>
 #define CREATE_DIR(path) _mkdir(path)
 #define PATH_SEP '\\'
 #else
